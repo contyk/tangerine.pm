@@ -1,0 +1,159 @@
+#!/usr/bin/perl
+use 5.010;
+use strict;
+use warnings;
+use feature 'fc';
+use version 0.77;
+use File::Find::Rule ();
+use File::Find::Rule::Perl ();
+use Getopt::Long;
+use List::MoreUtils qw(uniq);
+use Tangerine;
+
+my %flags;
+$flags{mode} = 'all';
+
+GetOptions( 'help' =>     \$flags{help},
+            'all' =>      \$flags{all},
+            'compact' =>  \$flags{compact},
+            'files' =>    \$flags{files},
+            'mode=s' =>   \$flags{mode},
+            'verbose' =>  \$flags{verbose},
+);
+
+$flags{help} = 1 unless @ARGV;
+$flags{help} = 1 unless
+    $flags{mode} =~ /^(a(ll)?|p(rov)?|d(ep)?|r(eq)?|u(se)?)$/;
+
+if ($flags{help}) {
+    print <<"HELP";
+tangerine: Examine perl files and report module-related information.
+
+Options:
+  --help        Display this help.
+  --all         Scan all files, not just perl.
+  --compact     Only list dependencies not provided by the scanned set.
+                This option implies --mode=all.
+  --files       Show a list of files instead of modules.
+                This option is ignored when --compact is selected.
+  --mode=<mode> Output mode, may be one of 'all', 'prov', 'dep', 'req', 'use'.
+                Specify what to report.  'dep' includes both 'req' and 'use'.
+                Default: all
+  --verbose     Be more verbose.
+
+HELP
+}
+
+if ($flags{compact}) {
+    $flags{mode} = 'all';
+    $flags{files} = 0;
+}
+
+my @filelist;
+my (%provides, %requires, %uses);
+
+for my $arg (@ARGV) {
+    if (-d $arg) {
+        if ($flags{all}) {
+            push @filelist, File::Find::Rule->file->in($arg);
+        } else {
+            push @filelist, File::Find::Rule->perl_file->in($arg);
+        }
+    } elsif (-f $arg) {
+        push @filelist, $arg;
+    } else {
+        print { *stderr } "`$arg' is not a file or a directory.\n";
+    }
+}
+
+if ($flags{verbose}) {
+    print "The following will be scanned:\n * ".join("\n * ", @filelist)."\n";
+    print "\n";
+}
+
+for my $file (@filelist) {
+    my $scanner = Tangerine->new(file => $file, mode => $flags{mode});
+    if ($scanner->run) {
+        if ($flags{files}) {
+            print "$file:\n";
+            if ($flags{mode} =~ /^(a(ll)?|p(rov)?)$/o) {
+                print "\tProvides:\n\t\t" . join("\n\t\t",
+                    map {
+                        $_ .
+                        ', on line(s) ' .
+                        join(', ', sort map $_->line,
+                            @{$scanner->provides->{$_}})
+                    } sort keys %{$scanner->provides}) . "\n"
+                    if %{$scanner->provides};
+            }
+            if ($flags{mode} =~ /^(a(ll)?|d(ep)?|r(eq)?)$/o) {
+                print "\tRequires:\n\t\t" . join("\n\t\t",
+                    map {
+                        $_ .
+                        ', on line(s) ' .
+                        join(', ', sort map $_->line,
+                            @{$scanner->requires->{$_}})
+                    } sort keys %{$scanner->requires}) . "\n"
+                    if %{$scanner->requires};
+            }
+            if ($flags{mode} =~ /^(a(ll)?|d(ep)?|u(se)?)$/o) {
+                print "\tUses:\n\t\t" . join("\n\t\t",
+                    map {
+                        $_ .
+                        ', on line(s) ' .
+                        join(', ', sort map {
+                            $_->line .
+                            ($_->version ? ' (v' . $_->version . ')' : '')
+                            } @{$scanner->uses->{$_}})
+                    } sort keys %{$scanner->uses}) . "\n"
+                    if %{$scanner->uses};
+            }
+        } else {
+            for my $k (keys %{$scanner->provides}) {
+                $provides{$k} = {} unless $provides{$k};
+                push @{$provides{$k}->{files}},
+                    map "$file:$_", map $_->line, @{$scanner->provides->{$k}}
+            }
+            for my $k (keys %{$scanner->requires}) {
+                $requires{$k} = {} unless $requires{$k};
+                push @{$requires{$k}->{files}},
+                    map "$file:$_", map $_->line, @{$scanner->requires->{$k}}
+            }
+            for my $k (keys %{$scanner->uses}) {
+                $uses{$k} = {} unless $uses{$k};
+                push @{$uses{$k}->{files}},
+                    map "$file:$_", map {
+                        $_->line . ($_->version ? ', v' . $_->version : '')
+                        } @{$scanner->uses->{$k}};
+                $uses{$k}->{version} //= 0;
+                for (@{$scanner->uses->{$k}}) {
+                    next unless $_->version;
+                    $uses{$k}->{version} = $_->version
+                        if $_->version &&
+                            (qv($uses{$k}->{version}) < qv($_->version));
+                }
+            }
+        }
+    } else {
+        print { *stderr } "Cannot scan `$file'!\n";
+    }
+}
+
+my @modules = uniq(keys %provides, keys %requires, keys %uses);
+for my $module (sort { fc($a) cmp fc($b) } @modules) {
+    next if ($flags{compact} && $provides{$module});
+    print $module .
+          ($uses{$module}->{version} ?
+              ', version '.$uses{$module}->{version} :
+              '').
+          "\n";
+    print "\tProvided by:\n\t\t".join("\n\t\t",
+        sort(@{$provides{$module}->{files}}))."\n"
+        if $provides{$module}->{files};
+    print "\tRequired by:\n\t\t".join("\n\t\t",
+        sort(@{$requires{$module}->{files}}))."\n"
+        if $requires{$module}->{files};
+    print "\tUsed by:\n\t\t".join("\n\t\t",
+        sort(@{$uses{$module}->{files}}))."\n"
+        if $uses{$module}->{files};
+}

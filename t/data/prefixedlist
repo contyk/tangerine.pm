@@ -1,0 +1,3 @@
+use Mo qw(default xs);
+use POE qq{Alpha} => qw/Bravo Charlie/, (q!Delta!, 'Echo');
+use POE ( qw( Echo ) );

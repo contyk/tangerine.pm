@@ -1,0 +1,4 @@
+use Foo 1.00;
+use Foo 1.01;
+use Foo 1.99;
+use Foo 1.02;

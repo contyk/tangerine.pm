@@ -1,0 +1,5 @@
+use base 'Alfa';
+use parent -norequire, qw(Beta Charlie);
+use aliased "Delta::Echo::Foxtrot";
+use base qw/Golf/;
+use base qw{ Hotel };

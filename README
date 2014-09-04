@@ -1,0 +1,74 @@
+NAME
+    Tangerine - Analyse perl files and report module-related information
+
+SYNOPSIS
+        use Tangerine;
+        use version 0.77;
+
+        my $scanner = Tangerine->new(file => $file, mode => 'all');
+        $scanner->run;
+
+        print "$file contains the following modules: ".
+            join q/, /, sort keys %{$scanner->provides}."\n";
+
+        print "$file requires Exporter on the following lines: ".
+            join q/, /, sort map $_->line, @{$scanner->requires->{Exporter}}."\n";
+
+        my $v = 0;
+        for ( @{$scanner->uses->{Test::More}}) {
+            $v = $_->version if $_->version && qv($v) < qv($_->version)
+        }
+        print "The minimum version of Test::More required by $file is $v\n";
+
+DESCRIPTION
+    Tangerine statically analyses perl files and reports various information
+    about provided, used (compile-time dependencies) and required (runtime
+    dependencies) modules.
+
+    Currently, PPI is used for the initial parsing and statement extraction.
+
+CONSTRUCTOR
+    "new"
+        Creates the Tangerine object. Takes the following two named
+        arguments:
+
+            'file', the file to analyse
+            'mode', what should we look for; may be one of 'all', 'prov', 'dep',
+                'req' or 'use'.  'dep' implies both 'req' and 'use'.  Single
+                letter abbreviations are also accepted.
+
+        Both arguments are optional, however, 'file' needs to be set before
+        running the scanner, e.g.
+
+            my $scanner = Tangerine->new;
+            $scanner->file($file);
+            $scanner->run;
+
+METHODS
+    "run"
+        Runs the analysis.
+
+    "provides"
+        Returns a hash reference. Keys are the modules provided, values
+        references to lists of Tangerine::Occurence objects.
+
+    "requires"
+        Returns a hash reference. Keys are the modules required at run-time,
+        values references to lists of Tangerine::Occurence objects.
+
+    "uses"
+        Returns a hash reference. Keys are the modules required at
+        compile-time, values references to lists of Tangerine::Occurence
+        objects.
+
+SEE ALSO
+    Tangerine::Occurence
+
+AUTHOR
+    Petr Šabata <contyk@redhat.com>
+
+COPYRIGHT AND LICENSE
+    Copyright (c) 2014 Petr Šabata
+
+    See LICENSE for licensing details.
+
