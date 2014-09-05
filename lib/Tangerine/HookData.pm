@@ -1,7 +1,7 @@
 package Tangerine::HookData;
 use strict;
 use warnings;
-use Mo qw(default xs);
+use Mo qw(default);
 
 has hooks => [];
 has modules => {};

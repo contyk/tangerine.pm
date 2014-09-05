@@ -1,7 +1,7 @@
 package Tangerine::Hook;
 use strict;
 use warnings;
-use Mo qw(default xs);
+use Mo qw(default);
 
 has type => '';
 has run => undef;

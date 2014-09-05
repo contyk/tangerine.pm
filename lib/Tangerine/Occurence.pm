@@ -1,7 +1,7 @@
 package Tangerine::Occurence;
 use strict;
 use warnings;
-use Mo qw(default xs);
+use Mo qw(default);
 
 has version => '';
 has line => 0;

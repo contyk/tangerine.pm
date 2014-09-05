@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use utf8;
 use PPI;
-use Mo qw(default xs);
+use Mo qw(default);
 use Tangerine::Hook;
 use Tangerine::Occurence;
 use Tangerine::Utils qw(addoccurence);
