@@ -1,3 +1,6 @@
+0.03 - September 8, 2014
+	Add ExecDir to dist.ini to install bin/tangerine by default
+
 0.02 - September 5, 2014
 	Switch to PP Mo
 	Include the script's deps in prereqs
