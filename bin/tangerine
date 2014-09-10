@@ -1,8 +1,7 @@
 #!/usr/bin/perl
-use 5.016;
+use 5.010;
 use strict;
 use warnings;
-use feature 'fc';
 use version 0.77;
 use File::Find::Rule ();
 use File::Find::Rule::Perl ();
@@ -140,7 +139,7 @@ for my $file (@filelist) {
 }
 
 my @modules = uniq(keys %provides, keys %requires, keys %uses);
-for my $module (sort { fc($a) cmp fc($b) } @modules) {
+for my $module (sort { lc($a) cmp lc($b) } @modules) {
     next if ($flags{compact} && $provides{$module});
     print $module .
           ($uses{$module}->{version} ?
