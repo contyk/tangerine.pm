@@ -1,6 +1,5 @@
 Something to work on:
 
 * Detect "require Module if $condition == 1;"
-* Detect "eval { require MissingSemicolon }"
 * AnyMoose
 * Moo/Moose `with' keywords
