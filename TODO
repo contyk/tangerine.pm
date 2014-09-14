@@ -1,5 +1,4 @@
 Something to work on:
 
-* Detect "require Module if $condition == 1;"
 * AnyMoose
 * Moo/Moose `with' keywords
