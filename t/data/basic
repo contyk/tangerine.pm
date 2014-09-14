@@ -5,3 +5,4 @@ use Charlie;
 use Delta ();
 require Echo;
 eval { require Foxtrot };
+require Golf if $something > $somethingelse;

@@ -6,7 +6,7 @@ use Tangerine::Occurence;
 
 sub run {
     my $s = shift;
-    if ((scalar(@$s) == 2 || scalar(@$s) == 3) && $s->[0] eq 'require') {
+    if (scalar(@$s) >= 2 && $s->[0] eq 'require') {
         my $module = $s->[1];
         return Tangerine::HookData->new(
             modules => { $module => Tangerine::Occurence->new },
