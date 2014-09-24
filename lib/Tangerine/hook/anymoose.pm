@@ -18,7 +18,7 @@ sub run {
             my $module = 'Mouse';
             $module.= '::Role' if $param && ($param eq 'Role');
             return Tangerine::HookData->new(
-                modules => { $module => Tangerine::Occurence->new },
+                children => [ $s->[0], $module, ';' ],
                 );
     }
     return;

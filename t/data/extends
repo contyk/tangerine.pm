@@ -1,0 +1,5 @@
+extends 'DontLoadThis';
+use Mo;
+use Mo;
+use Mo;
+extends 'LoadThisInstead';
