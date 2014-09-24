@@ -1,0 +1,2 @@
+use Any::Moose 'Role';
+use Any::Moose 0.18 'Role';

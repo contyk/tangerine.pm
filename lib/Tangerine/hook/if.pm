@@ -50,7 +50,7 @@ the modified statement for further processing.
 
 =head1 SEE ALSO
 
-L<tangerine>, L<if>
+L<Tangerine>, L<if>
 
 =head1 AUTHOR
 
