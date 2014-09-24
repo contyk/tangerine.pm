@@ -1,5 +1,6 @@
 Something to work on:
 
 * AnyMoose
-* Moo/Moose `with' keywords
+* Moo/Moose/Mouse `with' keywords
 * Parse EXPR form of eval
+* Test::Requires
