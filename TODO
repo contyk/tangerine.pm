@@ -1,5 +1,6 @@
 Something to work on:
 
-* Moo/Moose/Mouse `with' keywords
+* Moo/Moose/Mouse `with' and `extends' keywords
+* Mo `extends' keyword
 * Parse EXPR form of eval
 * Test::Requires

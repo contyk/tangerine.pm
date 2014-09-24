@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 17;
+use Test::More tests => 9;
 use Tangerine;
 
 my $scanner = Tangerine->new(file => 't/data/anymoose');
@@ -9,12 +9,16 @@ ok($scanner->run, 'If run');
 
 my %expected = (
     'Any::Moose' => {
-        count => 2,
-        lines => [ 1, 2 ],
+        count => 6,
+        lines => [ 1 .. 6 ],
     },
     Mouse => {
+        count => 4,
+        lines => [ 1, 3, 4, 6 ],
+    },
+    'Mouse::Role' => {
         count => 2,
-        lines => [ 1, 2 ],
+        lines => [ 2, 5 ],
     },
 );
 
@@ -25,4 +29,4 @@ for (sort keys %expected) {
     is_deeply([ sort map { $_->line } @{$scanner->uses->{$_}} ],
         $expected{$_}->{lines}, "Any::Moose uses line number ($_)");
 }
-is($scanner->uses->{Any::Moose}->[1]->version, '0.18', 'Any::Moose version');
+is($scanner->uses->{'Any::Moose'}->[3]->version, '0.18', 'Any::Moose version');
