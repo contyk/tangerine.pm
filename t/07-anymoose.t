@@ -5,7 +5,7 @@ use Tangerine;
 
 my $scanner = Tangerine->new(file => 't/data/anymoose');
 
-ok($scanner->run, 'If run');
+ok($scanner->run, 'Any::Moose run');
 
 my %expected = (
     'Any::Moose' => {

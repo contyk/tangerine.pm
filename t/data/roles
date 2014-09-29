@@ -1,0 +1,10 @@
+extends 'DontLoadThis';
+use Mo;
+use Mo;
+use Mo;
+with "UnusedRole1";
+with "UnusedRole2", "UnusedRole3";
+use Moose;
+extends 'LoadThisInstead';
+with "UsedRole1";
+with "UsedRole2", "UsedRole3";
