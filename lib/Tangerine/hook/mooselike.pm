@@ -49,7 +49,7 @@ hooks, e.g. L<Tangerine::hook::extends> or L<Tangerine::hook::with>.
 
 Currently this hook knows about L<Moose>, L<Mouse>, L<Moo> and L<Mo>.
 
-=head SEE ALSO
+=head1 SEE ALSO
 
 L<Tangerine>, L<Moose>, L<Mouse>, L<Moo>, L<Mo>
 

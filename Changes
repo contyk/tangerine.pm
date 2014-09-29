@@ -1,3 +1,6 @@
+0.05 - September 29, 2014
+	Release with proper POD
+
 0.04 - September 29, 2014
 	Detect conditional and compound require statement correctly
 	Support Any::Moose
