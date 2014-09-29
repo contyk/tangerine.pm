@@ -115,7 +115,7 @@ Tangerine - Analyse perl files and report module-related information
         join q/, /, sort map $_->line, @{$scanner->requires->{Exporter}}."\n";
 
     my $v = 0;
-    for ( @{$scanner->uses->{Test::More}}) {
+    for ( @{$scanner->uses->{'Test::More'}}) {
         $v = $_->version if $_->version && qv($v) < qv($_->version)
     }
     print "The minimum version of Test::More required by $file is $v\n";

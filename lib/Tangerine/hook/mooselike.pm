@@ -17,8 +17,7 @@ sub run {
                 run => \&Tangerine::hook::extends::run,
             )
         );
-        # Write the with hook first
-        if (0 && $s->[1] ne 'Mo') {
+        if ($s->[1] ne 'Mo') {
             require Tangerine::hook::with;
             push @hooks, Tangerine::Hook->new(
                 type => 'req',

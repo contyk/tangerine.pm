@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 9;
+use Test::More tests => 15;
 use Tangerine;
 
 my $scanner = Tangerine->new(file => 't/data/roles');
@@ -23,19 +23,18 @@ my %expectedrequires = (
         count => 1,
         lines => [ 8 ],
     },
-    # XXX: Not implemented yet
-    #UsedRole1 => {
-    #    count => 1,
-    #    lines => [ 9 ],
-    #},
-    #UsedRole2 => {
-    #    count => 1,
-    #    lines => [ 10 ],
-    #},
-    #UsedRole3 => {
-    #    count => 1,
-    #    lines => [ 10 ],
-    #},
+    UsedRole1 => {
+        count => 1,
+        lines => [ 9 ],
+    },
+    UsedRole2 => {
+        count => 1,
+        lines => [ 10 ],
+    },
+    UsedRole3 => {
+        count => 1,
+        lines => [ 10 ],
+    },
 );
 
 is_deeply([sort keys $scanner->uses], [sort keys %expecteduses], 'Roles uses');

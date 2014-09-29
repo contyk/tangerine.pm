@@ -1,6 +1,5 @@
 Something to work on:
 
-* Moo/Moose/Mouse `with' and `extends' keywords
 * Parse EXPR form of eval
 * Test::Requires
 * use_ok() from Test::More, Test::Modern, Test::Inter

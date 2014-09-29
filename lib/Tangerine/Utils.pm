@@ -19,7 +19,7 @@ sub stripquotelike {
                 $_
             }
         } grep {
-            $_ if !/^(,|=>)$/o
+            $_ if !/^(,|=>|;)$/o
         } apply {
             s/^\s+|\s+$//go;
             $_
