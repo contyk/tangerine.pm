@@ -156,3 +156,5 @@ for my $module (sort { lc($a) cmp lc($b) } @modules) {
         sort(@{$uses{$module}->{files}}))."\n"
         if $uses{$module}->{files};
 }
+
+1;
