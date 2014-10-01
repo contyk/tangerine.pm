@@ -22,7 +22,7 @@ my %expected = (
     },
 );
 
-is_deeply([sort keys $scanner->uses], [sort keys %expected], 'Any::Moose uses');
+is_deeply([sort keys %{$scanner->uses}], [sort keys %expected], 'Any::Moose uses');
 for (sort keys %expected) {
     is(scalar @{$scanner->uses->{$_}}, $expected{$_}->{count},
         "Any::Moose uses count ($_)");

@@ -37,14 +37,14 @@ my %expectedrequires = (
     },
 );
 
-is_deeply([sort keys $scanner->uses], [sort keys %expecteduses], 'Roles uses');
+is_deeply([sort keys %{$scanner->uses}], [sort keys %expecteduses], 'Roles uses');
 for (sort keys %expecteduses) {
     is(scalar @{$scanner->uses->{$_}}, $expecteduses{$_}->{count},
         "Any::Moose uses count ($_)");
     is_deeply([ sort map { $_->line } @{$scanner->uses->{$_}} ],
         $expecteduses{$_}->{lines}, "Roles uses line numbers ($_)");
 }
-is_deeply([sort keys $scanner->requires], [sort keys %expectedrequires], 'Roles requires');
+is_deeply([sort keys %{$scanner->requires}], [sort keys %expectedrequires], 'Roles requires');
 for (sort keys %expectedrequires) {
     is(scalar @{$scanner->requires->{$_}}, $expectedrequires{$_}->{count},
         "Any::Moose requires count ($_)");

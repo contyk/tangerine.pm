@@ -7,7 +7,7 @@ my $scanner = Tangerine->new(file => 't/data/versioned');
 
 ok($scanner->run, 'Versioned run');
 
-is_deeply([sort keys $scanner->uses], [qw/Foo/], 'Versioned uses');
+is_deeply([sort keys %{$scanner->uses}], [qw/Foo/], 'Versioned uses');
 is(scalar @{$scanner->uses->{Foo}}, 4, 'Prefixed list uses count');
 is_deeply([ sort map { $_->line } @{$scanner->uses->{Foo}} ],
     [ 1 .. 4 ], 'Versioned line numbers');

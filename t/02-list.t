@@ -46,7 +46,7 @@ my %expected = (
     },
 );
 
-is_deeply([sort keys $scanner->uses], [sort keys %expected], 'List uses');
+is_deeply([sort keys %{$scanner->uses}], [sort keys %expected], 'List uses');
 for (sort keys %expected) {
     is(scalar @{$scanner->uses->{$_}}, $expected{$_}->{count},
         "List uses count ($_)");
