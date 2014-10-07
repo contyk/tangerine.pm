@@ -16,7 +16,7 @@ sub run {
         my @args;
         if (scalar(@$s) > 3) {
             @args = @$s;
-            @args = @args[($version ? 3 : 2) .. $#args-1];
+            @args = @args[($version ? 3 : 2) .. $#args];
             @args = grep { !/^-norequire$/ } @args
                 if $s->[1] eq 'parent';
             @args = stripquotelike(@args);

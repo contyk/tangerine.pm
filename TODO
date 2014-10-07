@@ -2,8 +2,6 @@ Something to work on:
 
 * Parse EXPR form of eval
 * Test::Requires
-* use_ok() from Test::More, Test::Modern, Test::Inter
-* require_ok() from Test::More, Test::Inter
 * syntax_ok() from Test::Strict
 * "use ok" from Test::use::ok
 * Don't report require statements with filenames or variables

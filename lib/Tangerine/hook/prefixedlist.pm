@@ -16,7 +16,7 @@ sub run {
         my @args;
         if (scalar(@$s) > 3) {
             @args = @$s;
-            @args = @args[($version ? 3 : 2) .. $#args-1];
+            @args = @args[($version ? 3 : 2) .. $#args];
             @args = stripquotelike(@args);
         }
         return Tangerine::HookData->new(

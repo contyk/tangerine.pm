@@ -10,7 +10,7 @@ sub run {
     my $s = shift;
     if (scalar(@$s) >= 2 && (any { $s->[0] eq $_ } qw(use no))) {
         my $module = $s->[1];
-        my ($version) = $s->[2] =~ /^(\d.*)$/o;
+        my ($version) = $s->[2] && $s->[2] =~ /^(\d.*)$/o;
         $version //= '';
         return Tangerine::HookData->new(
             modules => {
