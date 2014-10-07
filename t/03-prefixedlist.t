@@ -16,6 +16,14 @@ my %expected = (
         count => 1,
         lines => [ 4 ],
     },
+    'Inline::Java' => {
+        count => 1,
+        lines => [ 6 ],
+    },
+    'Inline::X' => {
+        count => 1,
+        lines => [ 5 ],
+    },
     Mo => {
         count => 1,
         lines => [ 1 ],

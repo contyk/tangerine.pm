@@ -2,3 +2,7 @@ use Mo qw(default xs);
 use POE qq{Alpha} => qw/Bravo Charlie/, (q!Delta!, 'Echo');
 use POE ( qw( Echo ) );
 use Inline C;
+use Inline X => "X source code";
+use Inline Java => <<'END';
+/* Java code goes here ... */
+END

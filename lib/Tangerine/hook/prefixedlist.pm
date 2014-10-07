@@ -19,6 +19,7 @@ sub run {
             @args = @args[($version ? 3 : 2) .. $#args];
             @args = stripquotelike(@args);
         }
+        @args = $args[0] if $s->[1] eq 'Inline';
         return Tangerine::HookData->new(
             modules => {
                 map {
