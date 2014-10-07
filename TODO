@@ -5,3 +5,4 @@ Something to work on:
 * syntax_ok() from Test::Strict
 * "use ok" from Test::use::ok
 * Don't report require statements with filenames or variables
+* A new Tangerine method to report required perl version

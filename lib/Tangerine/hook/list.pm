@@ -14,7 +14,7 @@ sub run {
         my ($version) = $s->[2] =~ /^(\d.*)$/o;
         $version //= '';
         my @args;
-        if (scalar(@$s) > 3) {
+        if (scalar(@$s) >= 3) {
             @args = @$s;
             @args = @args[($version ? 3 : 2) .. $#args];
             @args = grep { !/^-norequire$/ } @args
