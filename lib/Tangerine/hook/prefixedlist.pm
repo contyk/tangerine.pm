@@ -10,7 +10,7 @@ use Tangerine::Utils qw(stripquotelike);
 sub run {
     my $s = shift;
     if ((any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) >= 3 &&
-        (any { $s->[1] eq $_ } qw(Mo POE))) {
+        (any { $s->[1] eq $_ } qw(Inline Mo POE))) {
         my ($version) = $s->[2] =~ /^(\d.*)$/o;
         $version //= '';
         my @args;
@@ -49,7 +49,7 @@ This hook catches C<use> statements with modules loading more modules
 listed as their arguments.  The difference from L<Tangerine::hook::list>
 is these modules use the same namespace as the module loading them.
 
-Currently this hook knows about L<Mo> and L<POE>.
+Currently this hook knows about L<Inline>, L<Mo> and L<POE>.
 
 =head1 AUTHOR
 

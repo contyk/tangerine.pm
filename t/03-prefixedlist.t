@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 20;
+use Test::More tests => 24;
 use Tangerine;
 
 my $scanner = Tangerine->new(file => 't/data/prefixedlist');
@@ -8,6 +8,14 @@ my $scanner = Tangerine->new(file => 't/data/prefixedlist');
 ok($scanner->run, 'Prefixed list run');
 
 my %expected = (
+    Inline => {
+        count => 1,
+        lines => [ 4 ],
+    },
+    'Inline::C' => {
+        count => 1,
+        lines => [ 4 ],
+    },
     Mo => {
         count => 1,
         lines => [ 1 ],
