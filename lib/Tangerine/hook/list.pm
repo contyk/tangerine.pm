@@ -10,7 +10,7 @@ use Tangerine::Utils qw(stripquotelike);
 sub run {
     my $s = shift;
     if ((any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) >= 3 &&
-        (any { $s->[1] eq $_ } qw(aliased base parent))) {
+        (any { $s->[1] eq $_ } qw(aliased base ok parent))) {
         my ($version) = $s->[2] =~ /^(\d.*)$/o;
         $version //= '';
         my @args;
@@ -21,6 +21,7 @@ sub run {
                 if $s->[1] eq 'parent';
             @args = stripquotelike(@args);
         }
+        @args = $args[0] if $s->[1] eq 'ok';
         return Tangerine::HookData->new(
             modules => {
                 map {
@@ -51,11 +52,12 @@ Tangerine::hook::list - Process simple module lists.
 This hook catches C<use> statements with modules loading more modules
 listed as their arguments.
 
-Currently this hook knows about L<aliased>, L<base> and L<parent>.
+Currently this hook knows about L<aliased>, L<base>, L<Test::use::ok>
+and L<parent>.
 
 =head1 SEE ALSO
 
-L<Tangerine>, L<aliased>, L<base>, L<parent>
+L<Tangerine>, L<aliased>, L<base>, L<Test::use::ok>, L<parent>
 
 =head1 AUTHOR
 

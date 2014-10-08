@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 20;
+use Test::More tests => 26;
 use Tangerine;
 
 my $scanner = Tangerine->new(file => 't/data/list');
@@ -32,6 +32,14 @@ my %expected = (
         count => 1,
         lines => [ 5 ],
     },
+    India => {
+        count => 1,
+        lines => [ 6 ],
+    },
+    Julliet => {
+        count => 1,
+        lines => [ 7 ],
+    },
     aliased => {
         count => 1,
         lines => [ 3 ],
@@ -39,6 +47,10 @@ my %expected = (
     base => {
         count => 3,
         lines => [ 1, 4, 5 ],
+    },
+    ok => {
+        count => 2,
+        lines => [ 6, 7 ],
     },
     parent => {
         count => 1,

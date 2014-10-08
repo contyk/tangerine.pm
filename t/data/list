@@ -3,3 +3,5 @@ use parent -norequire, qw(Beta Charlie);
 use aliased "Delta::Echo::Foxtrot";
 use base qw/Golf/;
 use base qw{ Hotel };
+use ok 'India';
+use ok qw/Julliet Kilo/;
