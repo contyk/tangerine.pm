@@ -45,8 +45,8 @@ my %expected = (
         lines => [ 3 ],
     },
     base => {
-        count => 3,
-        lines => [ 1, 4, 5 ],
+        count => 4,
+        lines => [ 1, 4, 5, 8 ],
     },
     ok => {
         count => 2,

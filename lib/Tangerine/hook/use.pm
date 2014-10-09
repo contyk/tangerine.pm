@@ -8,7 +8,8 @@ use Tangerine::Occurence;
 
 sub run {
     my $s = shift;
-    if (scalar(@$s) >= 2 && (any { $s->[0] eq $_ } qw(use no))) {
+    if (scalar(@$s) > 1 && (any { $s->[0] eq $_ } qw(use no))) {
+        return if $s->[1] eq ';';
         my $module = $s->[1];
         my ($version) = $s->[2] && $s->[2] =~ /^(\d.*)$/o;
         $version //= '';

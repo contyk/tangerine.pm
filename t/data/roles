@@ -8,3 +8,5 @@ use Moose;
 extends 'LoadThisInstead';
 with "UsedRole1";
 with "UsedRole2", "UsedRole3";
+extends;
+with;

@@ -9,22 +9,23 @@ use Tangerine::Utils qw(stripquotelike);
 
 sub run {
     my $s = shift;
-    if ((any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) >= 3 &&
+    if ((any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) > 2 &&
         (any { $s->[1] eq $_ } qw(Inline Mo POE))) {
         my ($version) = $s->[2] =~ /^(\d.*)$/o;
         $version //= '';
+        my $voffset = $version ? 3 : 2;
         my @args;
-        if (scalar(@$s) >= 3) {
+        if (scalar(@$s) > $voffset) {
+            return if $s->[$voffset] eq ';';
             @args = @$s;
-            @args = @args[($version ? 3 : 2) .. $#args];
+            @args = @args[($voffset) .. $#args];
             @args = stripquotelike(@args);
         }
         @args = $args[0] if $s->[1] eq 'Inline';
         return Tangerine::HookData->new(
             modules => {
                 map {
-                    ( $s->[1].'::'.$_ => Tangerine::Occurence->new(
-                        ) )
+                    ( $s->[1].'::'.$_ => Tangerine::Occurence->new() )
                     } @args,
                 },
             );

@@ -25,8 +25,8 @@ my %expected = (
         lines => [ 5 ],
     },
     Mo => {
-        count => 1,
-        lines => [ 1 ],
+        count => 2,
+        lines => [ 1, 9 ],
     },
     'Mo::default' => {
         count => 1,

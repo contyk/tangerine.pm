@@ -9,7 +9,7 @@ use Tangerine::HookData;
 sub run {
     my $s = shift;
     if ((any { $s->[0] eq $_ } qw(use no)) &&
-        scalar(@$s) > 2 && (any { $s->[1] eq $_ } qw(Moose Mouse Moo Mo))) {
+        scalar(@$s) > 1 && (any { $s->[1] eq $_ } qw(Moose Mouse Moo Mo))) {
         require Tangerine::hook::extends;
         my @hooks = (
             Tangerine::Hook->new(

@@ -9,8 +9,8 @@ ok($scanner->run, 'If run');
 
 my %expected = (
     if => {
-        count => 5,
-        lines => [ 1 .. 5 ],
+        count => 6,
+        lines => [ 1 .. 6 ],
     },
     Alfa => {
         count => 1,

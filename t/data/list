@@ -5,3 +5,4 @@ use base qw/Golf/;
 use base qw{ Hotel };
 use ok 'India';
 use ok qw/Julliet Kilo/;
+use base;

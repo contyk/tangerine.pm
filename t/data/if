@@ -3,3 +3,4 @@ use if WANT_BETA, Beta => qw(Charlie);
 use if $brokenif;
 use if 0.05 VERSIONED_IF, 'Delta';
 use if OBSCURE_IF, Mo => qw(default xs);
+use if;

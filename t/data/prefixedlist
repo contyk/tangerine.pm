@@ -6,3 +6,4 @@ use Inline X => "X source code";
 use Inline Java => <<'END';
 /* Java code goes here ... */
 END
+use Mo;

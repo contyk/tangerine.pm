@@ -13,8 +13,9 @@ sub run {
         scalar(@$s) > 2 && $s->[1] eq 'Any::Moose') {
             my ($version) = $s->[2] =~ /^(\d.*)$/o;
             $version //= '';
-            my $param = stripquotelike($s->[$version ? 3 : 2])
-                if $s->[$version ? 3 : 2] ne ';';
+            my $voffset = $version ? 3 : 2;
+            my $param = stripquotelike($s->[$voffset])
+                if $s->[$voffset] && ($s->[$voffset] ne ';');
             my $module = 'Mouse';
             $module.= '::Role' if $param && ($param eq 'Role');
             return Tangerine::HookData->new(

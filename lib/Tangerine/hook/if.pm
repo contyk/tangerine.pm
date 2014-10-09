@@ -12,8 +12,9 @@ sub run {
         scalar(@$s) > 3 && $s->[1] eq 'if') {
         my ($version) = $s->[2] =~ /^(\d.*)$/o;
         $version //= '';
-        my ($depth, $index) = (0, 1);
-        for ($index = 2; $index < $#$s; $index++) {
+        my $voffset = $version ? 3 : 2;
+        my ($depth, $index) = (0, 0);
+        for ($index = $voffset; $index < $#$s; $index++) {
             my $token = $s->[$index];
             $depth++ if ($token eq '[' || $token eq '{' || $token eq '(');
             $depth-- if ($token eq ']' || $token eq '}' || $token eq ')');

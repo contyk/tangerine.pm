@@ -6,7 +6,8 @@ use Tangerine::Occurence;
 
 sub run {
     my $s = shift;
-    if ($s->[0] eq 'package' && scalar(@$s) == 3) {
+    if ($s->[0] eq 'package' && scalar(@$s) > 1) {
+        return if $s->[1] eq ';';
         return Tangerine::HookData->new(
             modules => {
                 $s->[1] => Tangerine::Occurence->new,

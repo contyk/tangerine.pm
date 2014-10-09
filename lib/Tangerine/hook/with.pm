@@ -7,7 +7,8 @@ use Tangerine::Utils qw(stripquotelike);
 
 sub run {
     my $s = shift;
-    if (scalar(@$s) >= 2 && $s->[0] eq 'with') {
+    if (scalar(@$s) > 1 && $s->[0] eq 'with') {
+        return if $s->[1] eq ';';
         my @modules = stripquotelike((@$s)[1..$#$s]);
         return Tangerine::HookData->new(
             modules => { map { ($_ => Tangerine::Occurence->new) } @modules },
