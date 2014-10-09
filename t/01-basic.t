@@ -38,6 +38,6 @@ is_deeply([sort keys %{$scanner->uses}], [sort keys %expected], 'Basic uses');
 for (sort keys %expected) {
     is(scalar @{$scanner->uses->{$_}}, $expected{$_}->{count},
         "Basic uses count ($_)");
-    is_deeply([ sort map { $_->line } @{$scanner->uses->{$_}} ],
+    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->uses->{$_}} ],
         $expected{$_}->{lines}, "Basic uses line number ($_)");
 }

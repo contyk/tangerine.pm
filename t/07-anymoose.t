@@ -26,7 +26,7 @@ is_deeply([sort keys %{$scanner->uses}], [sort keys %expected], 'Any::Moose uses
 for (sort keys %expected) {
     is(scalar @{$scanner->uses->{$_}}, $expected{$_}->{count},
         "Any::Moose uses count ($_)");
-    is_deeply([ sort map { $_->line } @{$scanner->uses->{$_}} ],
+    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->uses->{$_}} ],
         $expected{$_}->{lines}, "Any::Moose uses line number ($_)");
 }
 is($scanner->uses->{'Any::Moose'}->[3]->version, '0.18', 'Any::Moose version');

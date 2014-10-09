@@ -42,7 +42,7 @@ is_deeply([sort keys %{$scanner->uses}], [sort keys %expected], 'If uses');
 for (sort keys %expected) {
     is(scalar @{$scanner->uses->{$_}}, $expected{$_}->{count},
         "If uses count ($_)");
-    is_deeply([ sort map { $_->line } @{$scanner->uses->{$_}} ],
+    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->uses->{$_}} ],
         $expected{$_}->{lines}, "If uses line number ($_)");
 }
 is($scanner->uses->{if}->[3]->version, '0.05', 'If version');
