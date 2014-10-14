@@ -59,6 +59,10 @@ sub run {
             if (my $data = $hook->run->($children)) {
                 my $modules = $data->{modules};
                 for my $k (keys %$modules) {
+                    if ($k =~ /[\$%@\*]/o) {
+                        delete $modules->{$k};
+                        next
+                    }
                     $modules->{$k}->line($statement->line_number);
                 }
                 if ($hook->type eq 'prov') {

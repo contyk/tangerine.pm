@@ -3,7 +3,6 @@ Something to work on:
 * Parse EXPR form of eval
 * Test::Requires
 * syntax_ok() from Test::Strict
-* Don't report require statements with filenames or variables
 * A new Tangerine method to report required perl version
 * Allow users to specify additional hooks to run
 * Support "use XXX -dumper/-yaml/-with <module>"
