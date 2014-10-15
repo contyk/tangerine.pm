@@ -5,7 +5,7 @@ use Tangerine;
 
 my $scanner = Tangerine->new(file => 't/data/variables');
 
-ok($scanner->run, 'Roles run');
+ok($scanner->run, 'Variables run');
 
 my %expecteduses = (
     Echo => {

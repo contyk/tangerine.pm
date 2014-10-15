@@ -5,7 +5,7 @@ use Tangerine;
 
 my $scanner = Tangerine->new(file => 't/data/tests');
 
-ok($scanner->run, 'Roles run');
+ok($scanner->run, 'Tests run');
 
 my %expecteduses = (
     'Test::More' => {
