@@ -1,12 +1,15 @@
 package Tangerine::hook::extends;
 use strict;
 use warnings;
+use Mo;
 use Tangerine::HookData;
 use Tangerine::Occurence;
 use Tangerine::Utils qw(stripquotelike);
 
+extends 'Tangerine::Hook';
+
 sub run {
-    my $s = shift;
+    my ($self, $s) = @_;
     if (scalar(@$s) > 1 && $s->[0] eq 'extends') {
         return if $s->[1] eq ';';
         my $module = stripquotelike($s->[1]);

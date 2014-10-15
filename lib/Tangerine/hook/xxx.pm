@@ -3,14 +3,18 @@ use 5.010;
 use strict;
 use warnings;
 use List::MoreUtils qw(any);
+use Mo;
 use Tangerine::HookData;
 use Tangerine::Occurence;
 use Tangerine::Utils qw/stripquotelike/;
 
+extends 'Tangerine::Hook';
+
 sub run {
-    my $s = shift;
+    my ($self, $s) = @_;
+    my $defaultbackend = 'YAML';
     if ((any { $s->[0] eq $_ } qw(use no)) &&
-        scalar(@$s) > 2 && $s->[1] eq 'XXX') {
+        scalar(@$s) > 2 && $s->[1] eq 'XXX' && $self->type eq 'use') {
         my $module;
         if ($s->[2] eq '-dumper') {
             $module = 'Data::Dumper';
@@ -19,9 +23,12 @@ sub run {
         } elsif ($s->[2] eq '-with' && $s->[4]) {
             $module = stripquotelike($s->[4]);
         }
-        $module //= 'YAML';
+        $module //= $defaultbackend;
         return Tangerine::HookData->new( modules => {
                 $module => Tangerine::Occurence->new } );
+    } elsif ($s->[0] eq 'require' && $s->[1] eq 'XXX' && $self->type eq 'req') {
+        return Tangerine::HookData->new( modules => {
+                $defaultbackend => Tangerine::Occurence->new } );
     }
     return;
 }

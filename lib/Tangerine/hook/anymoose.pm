@@ -3,12 +3,15 @@ use 5.010;
 use strict;
 use warnings;
 use List::MoreUtils qw(any);
+use Mo;
 use Tangerine::HookData;
 use Tangerine::Occurence;
 use Tangerine::Utils qw(stripquotelike);
 
+extends 'Tangerine::Hook';
+
 sub run {
-    my $s = shift;
+    my ($self, $s) = @_;
     if ((any { $s->[0] eq $_ } qw(use no)) &&
         scalar(@$s) > 2 && $s->[1] eq 'Any::Moose') {
             my ($version) = $s->[2] =~ /^(\d.*)$/o;

@@ -1,11 +1,14 @@
 package Tangerine::hook::package;
 use strict;
 use warnings;
+use Mo;
 use Tangerine::HookData;
 use Tangerine::Occurence;
 
+extends 'Tangerine::Hook';
+
 sub run {
-    my $s = shift;
+    my ($self, $s) = @_;
     if ($s->[0] eq 'package' && scalar(@$s) > 1) {
         return if $s->[1] eq ';';
         return Tangerine::HookData->new(

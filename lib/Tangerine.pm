@@ -7,6 +7,7 @@ use utf8;
 use PPI;
 use List::MoreUtils qw(none);
 use Mo qw(default);
+use Scalar::Util qw(blessed);
 use Tangerine::Hook;
 use Tangerine::Occurence;
 use Tangerine::Utils qw(addoccurence);
@@ -19,7 +20,7 @@ has uses => {};
 
 my %hooks;
 $hooks{prov} = [ qw(package) ];
-$hooks{req} = [ qw(require) ];
+$hooks{req} = [ qw(require xxx) ];
 $hooks{use} = [ qw(use list prefixedlist anymoose if mooselike tests xxx) ];
 
 sub run {
@@ -35,8 +36,7 @@ sub run {
         for my $hname (@{$hooks{$type}}) {
             my $hook = "Tangerine::hook::$hname";
             eval "require $hook";
-            $hook.= '::run';
-            push @hooks, Tangerine::Hook->new(type => $type, run => \&$hook);
+            push @hooks, $hook->new(type => $type);
         }
     }
     @hooks = grep {
@@ -56,7 +56,7 @@ sub run {
             next STATEMENT
         }
         for my $hook (@hooks) {
-            if (my $data = $hook->run->($children)) {
+            if (my $data = $hook->run($children)) {
                 my $modules = $data->{modules};
                 for my $k (keys %$modules) {
                     if ($k =~ /[\$%@\*]/o || $k =~ /^('|"|qq?\s*[^\w])/o) {
@@ -78,7 +78,10 @@ sub run {
                         next if ($newhook->type eq 'req') && ($self->mode =~ /^[pu]/o);
                         next if ($newhook->type eq 'use') && ($self->mode =~ /^[pr]/o);
                         push @hooks, $newhook
-                            if none { $newhook->run eq $_->run } @hooks;
+                            if none {
+                                blessed($newhook) eq blessed($_) &&
+                                $newhook->type eq $_->type
+                            } @hooks;
                     }
                 }
                 if ($data->{children}) {

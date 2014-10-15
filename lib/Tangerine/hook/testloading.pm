@@ -2,12 +2,15 @@ package Tangerine::hook::testloading;
 use strict;
 use warnings;
 use List::MoreUtils qw/any/;
+use Mo;
 use Tangerine::HookData;
 use Tangerine::Occurence;
 use Tangerine::Utils qw(stripquotelike);
 
+extends 'Tangerine::Hook';
+
 sub run {
-    my $s = shift;
+    my ($self, $s) = @_;
     if (scalar(@$s) > 1 && any { $s->[0] eq $_ } qw/require_ok syntax_ok use_ok/) {
         return if $s->[1] eq ';';
         my @modules = stripquotelike((@$s)[1..$#$s]);

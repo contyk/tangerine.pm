@@ -3,22 +3,20 @@ use 5.010;
 use strict;
 use warnings;
 use List::MoreUtils qw(any);
+use Mo;
 use Tangerine::Hook;
 use Tangerine::HookData;
 
+extends 'Tangerine::Hook';
+
 sub run {
-    my $s = shift;
+    my ($self, $s) = @_;
     if ((any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) > 1 &&
         (any { $s->[1] eq $_ }
             qw(Test::Inter Test::Modern Test::More Test::Strict))) {
         require Tangerine::hook::testloading;
-        my @hooks = (
-            Tangerine::Hook->new(
-                type => 'req',
-                run => \&Tangerine::hook::testloading::run,
-            )
-        );
-        return Tangerine::HookData->new( hooks => [ @hooks ] );
+        return Tangerine::HookData->new( hooks => [
+                Tangerine::hook::testloading->new(type => 'req') ] );
     }
     return;
 }

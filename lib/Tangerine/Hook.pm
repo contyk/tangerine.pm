@@ -4,7 +4,10 @@ use warnings;
 use Mo qw(default);
 
 has type => '';
-has run => undef;
+
+sub run {
+    warn "Hook run() method not implemented.";
+}
 
 1;
 
@@ -16,25 +19,43 @@ __END__
 
 =head1 NAME
 
-Tangerine::Hook - A simple hook object.
+Tangerine::Hook - A simple hook class.
 
 =head1 SYNOPSIS
 
-    my $hook = Tangerine::Hook->new(
-        type => 'prov',
-        run => \&Tangerine::hook::package::run
-    );
-    $hook->run([ qw/use strict ;/]);
+    package MyHook;
+    use Mo;
+    use Tangerine::HookData;
+    use Tangerine::Occurence;
+    extends 'Tangerine::Hook';
+
+    sub run {
+        my ($self, $s) = @_;
+        if ($s->[0] eq 'use' && $self->type eq 'use' &&
+            $s->[1] && $s->[1] eq 'MyModule') {
+            return Tangerine::HookData->new(
+                modules => { MyModule => Tangerine::Occurence->new },
+            )
+        }
+        return
+    }
 
 =head1 DESCRIPTION
 
-Hooks hold a code reference to the actual hook routine.  They also have
-a type property which may be one of C<prov>, C<req> or C<use> to denote
-whether this hook is returns provided modules or modules required at
-run-time or compile-time respectively.
+Hooks are the workhorses of Tangerine, examining the actual code and
+returning L<Tangerine::HookData> where applicable.
 
-Code references expect a statement to process.  This is simply a list
-reference of L<PPI::Statement>'s significant children.
+Every hook has a type, which can be one of 'prov', 'req' or 'use',
+set by the caller and determining what she is interested in.
+
+Every hook should implement the C<run> method which is passed an array
+reference containing the significant children (see L<PPI::Statement>)
+of the currently parsed Perl statement.
+
+The caller expects a L<Tangerine::HookData> instance defining what
+C<modules> of the requested C<type> we found, what C<hooks> the caller
+should register or what C<children> shall be examined next.  Either or
+all these may be returned at once.
 
 =head1 METHODS
 
@@ -46,13 +67,17 @@ Returns or sets the hook type.  May be one of C<prov>, C<req> or C<use>.
 
 =item C<run>
 
-Returns or set the hook code reference.
+This is called by L<Tangerine> with an array reference containing the
+significant children of the currently parsed Perl statement.  Returns a
+L<Tangerine::HookData> instance.
+
+Every hook needs to implement this method.
 
 =back
 
 =head1 SEE ALSO
 
-C<Tangerine>, C<PPI::Statement>
+C<Tangerine>, C<PPI::Statement>, C<Tangerine::HookData>
 
 =head1 AUTHOR
 

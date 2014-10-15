@@ -3,11 +3,14 @@ use 5.010;
 use strict;
 use warnings;
 use List::MoreUtils qw(any);
+use Mo;
 use Tangerine::HookData;
 use Tangerine::Occurence;
 
+extends 'Tangerine::Hook';
+
 sub run {
-    my $s = shift;
+    my ($self, $s) = @_;
     if (scalar(@$s) > 1 && (any { $s->[0] eq $_ } qw(use no))) {
         return if $s->[1] eq ';';
         my $module = $s->[1];
