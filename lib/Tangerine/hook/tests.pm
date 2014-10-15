@@ -9,7 +9,8 @@ use Tangerine::HookData;
 sub run {
     my $s = shift;
     if ((any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) > 1 &&
-        (any { $s->[1] eq $_ } qw(Test::Inter Test::Modern Test::More))) {
+        (any { $s->[1] eq $_ }
+            qw(Test::Inter Test::Modern Test::More Test::Strict))) {
         require Tangerine::hook::testloading;
         my @hooks = (
             Tangerine::Hook->new(

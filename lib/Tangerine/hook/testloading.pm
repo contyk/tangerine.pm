@@ -8,7 +8,7 @@ use Tangerine::Utils qw(stripquotelike);
 
 sub run {
     my $s = shift;
-    if (scalar(@$s) > 1 && any { $s->[0] eq $_ } qw/require_ok use_ok/) {
+    if (scalar(@$s) > 1 && any { $s->[0] eq $_ } qw/require_ok syntax_ok use_ok/) {
         return if $s->[1] eq ';';
         my @modules = stripquotelike((@$s)[1..$#$s]);
         return Tangerine::HookData->new(
