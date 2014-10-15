@@ -1,3 +1,13 @@
+0.10 - October 15
+	New internal hook API
+	Support for use_ok, require_ok, syntax_ok from various test
+	    distributions, and for "use ok" added
+	Inline support added
+	XXX support added
+	Minor performance improvements
+	We no longer report reqs/uses containing non-module strings,
+	    like filesnames or variables
+
 0.06 - October 6, 2014
 	Restore compatibility with 5.10
 
