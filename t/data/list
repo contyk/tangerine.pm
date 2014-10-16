@@ -6,3 +6,4 @@ use base qw{ Hotel };
 use ok 'India';
 use ok qw/Julliet Kilo/;
 use base;
+use aliased "Lima" => "Mike";

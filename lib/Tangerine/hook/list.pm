@@ -26,7 +26,7 @@ sub run {
                 if $s->[1] eq 'parent';
             @args = stripquotelike(@args);
         }
-        @args = $args[0] if $s->[1] eq 'ok';
+        @args = $args[0] if any { $s->[1] eq $_ } qw/aliased ok/;
         return Tangerine::HookData->new(
             modules => {
                 map {
