@@ -4,3 +4,4 @@ Something to work on:
 * Test::Requires
 * A new Tangerine method to report required perl version
 * Allow users to specify additional hooks to run
+* Deal with "use base Exporter::" and similar somehow
