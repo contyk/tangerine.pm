@@ -9,19 +9,19 @@ sub stripquotelike {
     my @filtered = map {
             if (/^('|").*$/o) {
                 substr $_, 1, -1
-            } elsif (/^(\(|\[).*$/o) {
-                stripquotelike(split /,|=>/, substr $_, 1, -1)
-            } elsif (/^qq?\s*[^\w](.*)[^\w]$/o) {
+            } elsif (/^(\(|\[).*$/so) {
+                stripquotelike(split /,|=>/so, substr $_, 1, -1)
+            } elsif (/^qq?\s*[^\w](.*)[^\w]$/so) {
                 $1
-            } elsif (/^qw\s*[^\w](.*)[^\w]$/o) {
-                grep { $_ } split /\s+/, $1
+            } elsif (/^qw\s*[^\w](.*)[^\w]$/so) {
+                grep { $_ } split /\s+/so, $1
             } else {
                 $_
             }
         } grep {
-            $_ if !/^(,|=>|;)$/o
+            $_ if !/^(,|=>|;)$/so
         } apply {
-            s/^\s+|\s+$//go;
+            s/^\s+|\s+$//sgo;
             $_
         } @_;
     return wantarray ? @filtered : $filtered[0];
