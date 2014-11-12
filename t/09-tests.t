@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 35;
+use Test::More tests => 37;
 use Tangerine;
 
 my $scanner = Tangerine->new(file => 't/data/tests');
@@ -55,6 +55,10 @@ my %expecteduses = (
     'Mo::xs' => {
         count => 2,
         lines => [ 9, 10 ],
+    },
+    Oscar => {
+        count => 1,
+        lines => [ 18 ],
     },
     parent => {
         count => 1,

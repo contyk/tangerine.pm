@@ -15,3 +15,5 @@ syntax_ok "Mike::November";
 use_ok;
 require_ok;
 syntax_ok;
+use_ok("Oscar", qw(Papa
+Quebec));
