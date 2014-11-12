@@ -59,7 +59,9 @@ sub run {
             if (my $data = $hook->run($children)) {
                 my $modules = $data->{modules};
                 for my $k (keys %$modules) {
-                    if ($k =~ /[\$%@\*]/o || $k =~ /^('|"|qq?\s*[^\w])/o) {
+                    if ($k =~ /[\$%@\*]/o ||
+                        $k =~ /^('|"|qq?\s*[^\w])/o ||
+                        $k =~ /\//o) {
                         delete $modules->{$k};
                         next
                     }
