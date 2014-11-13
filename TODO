@@ -9,3 +9,7 @@ Something to work on:
   use Exporter 5.7012345_6789 tries to load
   Exporter 5.701234568
 * Support Module::Runtime (e.g. use_module())
+* Moose's `with' can be interpreted as a hash, with module
+  names as keys and hashrefs (with -version => VER and
+  possibly other stuff) as their values.  Currently we
+  report the hashrefs as modules.
