@@ -22,7 +22,7 @@ sub run {
                     version => $version,
                     ),
                 },
-            ) unless $module =~ /^v?5\..*$/;
+            ) unless $module =~ /^v?5(\..*)?$/;
     }
     return;
 }
