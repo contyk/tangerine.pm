@@ -13,3 +13,15 @@ Something to work on:
   names as keys and hashrefs (with -version => VER and
   possibly other stuff) as their values.  Currently we
   report the hashrefs as modules.
+* Actually, moose-like stuff needs to reworked quite a bit.
+  We need to support multiple classes with `extends' and
+  various weird `with' and `extends' syntaxes, examples follow:
+
+  extends 'My::Parent' => { -version => 0.01 }, 'My::OtherParent' => { -version => 0.03 };
+  # Not sure about this:
+  extends 'My::Parent' => { -version => 0.01 }, 'My::OtherParent', 'My::ThirdParent::Weird';
+  # Ditto for `with'
+  # And also, an example from SQL::Translator.  Perhaps we could bail out from stuff like
+  # this as this is not parsable with static analysis (field_names is a subroutine which
+  # returns a list or whatnot...
+  with ListAttr field_names => ( uniq => 1, undef_if_empty => 1 );
