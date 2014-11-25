@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 18;
+use Test::More tests => 20;
 use Tangerine;
 
 my $scanner = Tangerine->new(file => 't/data/basic');
@@ -31,6 +31,10 @@ my %expected = (
     Delta => {
         count => 1,
         lines => [ 5 ],
+    },
+    Hotel => {
+        count => 1,
+        lines => [ 12 ],
     },
 );
 

@@ -9,3 +9,4 @@ require Golf if $something > $somethingelse;
 package;
 use;
 require;
+use Hotel::;

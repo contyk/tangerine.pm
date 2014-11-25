@@ -65,6 +65,12 @@ sub run {
                         delete $modules->{$k};
                         next
                     }
+                    if (my ($class) = ($k =~ /^(.+)::$/o)) {
+                        $modules->{$class} = $modules->{$k}
+                            unless exists $modules->{$class};
+                        delete $modules->{$k};
+                        $k = $class
+                    }
                     $modules->{$k}->line($statement->line_number);
                 }
                 if ($hook->type eq 'prov') {
