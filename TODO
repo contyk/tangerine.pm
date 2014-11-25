@@ -23,5 +23,6 @@ Something to work on:
   # Ditto for `with'
   # And also, an example from SQL::Translator.  Perhaps we could bail out from stuff like
   # this as this is not parsable with static analysis (field_names is a subroutine which
-  # returns a list or whatnot...
+  # returns a list or whatnot...)
   with ListAttr field_names => ( uniq => 1, undef_if_empty => 1 );
+  # This is actually ListAttr->with; it's the indirect object syntax
