@@ -1,3 +1,13 @@
+0.11 2014-11-26
+
+ - Moose-like support rewritten -- we now detect versions and avoid indirect
+   object method calls
+ - aliased fixed; it now only reports the first module in the list, duh
+ - We no longer report obvious filenames, really
+ - The required version of perl can be an integer as well, duh again
+ - List constructors spread over multiple lines are now processed correctly
+ - Package names ending in :: are now reported without this suffix
+
 0.10 2014-10-15
 
  - New internal hook API
