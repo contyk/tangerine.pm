@@ -3,6 +3,7 @@ use 5.010;
 use strict;
 use warnings;
 use List::MoreUtils qw(any none);
+use Mo;
 use Tangerine::Hook;
 use Tangerine::HookData;
 use Tangerine::Utils qw(stripquotelike);
