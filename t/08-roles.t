@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 15;
+use Test::More tests => 23;
 use Tangerine;
 
 my $scanner = Tangerine->new(file => 't/data/roles');
@@ -8,32 +8,40 @@ my $scanner = Tangerine->new(file => 't/data/roles');
 ok($scanner->run, 'Roles run');
 
 my %expecteduses = (
-    Mo => {
-        count => 3,
-        lines => [ 2 .. 4 ],
-    },
     Moose => {
         count => 1,
-        lines => [ 7 ],
+        lines => [ 1 ],
     },
 );
 
 my %expectedrequires = (
-    LoadThisInstead => {
+    Alfa => {
         count => 1,
-        lines => [ 8 ],
+        lines => [ 2 ],
     },
-    UsedRole1 => {
+    Beta => {
         count => 1,
-        lines => [ 9 ],
+        lines => [ 2 ],
     },
-    UsedRole2 => {
+    Charlie => {
         count => 1,
-        lines => [ 10 ],
+        lines => [ 4 ],
     },
-    UsedRole3 => {
+    Delta => {
         count => 1,
-        lines => [ 10 ],
+        lines => [ 4 ],
+    },
+    Echo => {
+        count => 1,
+        lines => [ 5 ],
+    },
+    Foxtrot => {
+        count => 1,
+        lines => [ 5 ],
+    },
+    Golf => {
+        count => 1,
+        lines => [ 6 ],
     },
 );
 
@@ -51,3 +59,8 @@ for (sort keys %expectedrequires) {
     is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->requires->{$_}} ],
         $expectedrequires{$_}->{lines}, "Roles requires line numbers ($_)");
 }
+
+is($scanner->requires->{Alfa}->[0]->version, 0.01, 'Roles - Alfa version');
+is($scanner->requires->{Beta}->[0]->version, 0.02, 'Roles - Beta version');
+is($scanner->requires->{Foxtrot}->[0]->version, 0.03, 'Roles - Foxtrot version');
+is($scanner->requires->{Golf}->[0]->version, 0.04, 'Roles - Golf version');

@@ -1,12 +1,10 @@
-extends 'DontLoadThis';
-use Mo;
-use Mo;
-use Mo;
-with "UnusedRole1";
-with "UnusedRole2", "UnusedRole3";
 use Moose;
-extends 'LoadThisInstead';
-with "UsedRole1";
-with "UsedRole2", "UsedRole3";
-extends;
+with 'Alfa' => { -version => 0.01 },
+     'Beta' => { -version => 0.02 };
+extends 'Charlie', 'Delta';
+with qw/Echo Foxtrot/ => { -version => 0.03 };
+extends "Golf", {foo => -version,qq{v0.04},
+	-xxx => 5};
+with Indirect object => ( method => call );
 with;
+extends;

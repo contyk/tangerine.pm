@@ -4,25 +4,9 @@ Something to work on:
 * Test::Requires
 * A new Tangerine method to report required perl version
 * Allow users to specify additional hooks to run
-* Deal with "use base Exporter::" and similar somehow
 * Convert versions in use statements as required, e.g.
   use Exporter 5.7012345_6789 tries to load
   Exporter 5.701234568
 * Support Module::Runtime (e.g. use_module())
-* Moose's `with' can be interpreted as a hash, with module
-  names as keys and hashrefs (with -version => VER and
-  possibly other stuff) as their values.  Currently we
-  report the hashrefs as modules.
-* Actually, moose-like stuff needs to reworked quite a bit.
-  We need to support multiple classes with `extends' and
-  various weird `with' and `extends' syntaxes, examples follow:
-
-  extends 'My::Parent' => { -version => 0.01 }, 'My::OtherParent' => { -version => 0.03 };
-  # Not sure about this:
-  extends 'My::Parent' => { -version => 0.01 }, 'My::OtherParent', 'My::ThirdParent::Weird';
-  # Ditto for `with'
-  # And also, an example from SQL::Translator.  Perhaps we could bail out from stuff like
-  # this as this is not parsable with static analysis (field_names is a subroutine which
-  # returns a list or whatnot...)
-  with ListAttr field_names => ( uniq => 1, undef_if_empty => 1 );
-  # This is actually ListAttr->with; it's the indirect object syntax
+* The script is a mess; refactor it
+* The script also needs a manpage

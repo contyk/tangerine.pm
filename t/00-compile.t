@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 18;
+use Test::More tests => 16;
 use Test::Script;
 
 for my $file (qw(
@@ -11,7 +11,6 @@ for my $file (qw(
     lib/Tangerine/Occurence.pm
     lib/Tangerine/Utils.pm
     lib/Tangerine/hook/anymoose.pm
-    lib/Tangerine/hook/extends.pm
     lib/Tangerine/hook/if.pm
     lib/Tangerine/hook/list.pm
     lib/Tangerine/hook/mooselike.pm
@@ -21,7 +20,6 @@ for my $file (qw(
     lib/Tangerine/hook/tests.pm
     lib/Tangerine/hook/testloading.pm
     lib/Tangerine/hook/use.pm
-    lib/Tangerine/hook/with.pm
     )) {
-        script_compiles($file, '$file compiles');
+        script_compiles($file, "$file compiles");
     }
