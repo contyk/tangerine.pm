@@ -24,7 +24,8 @@ sub run {
             @args = @args[($voffset) .. $#args];
             @args = stripquotelike(@args);
         }
-        @args = $args[0] if $s->[1] eq 'Inline';
+        @args = $args[0] ? ($args[0]) : ()
+            if $s->[1] eq 'Inline';
         return Tangerine::HookData->new(
             modules => {
                 map {
