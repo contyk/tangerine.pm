@@ -61,7 +61,7 @@ for my $arg (@ARGV) {
     } elsif (-f $arg) {
         push @filelist, $arg;
     } else {
-        print { *stderr } "`$arg' is not a file or a directory.\n";
+        print { *stderr } "Cannot access `$arg': No such file or directory\n";
     }
 }
 
