@@ -12,3 +12,4 @@ Something to work on:
 * The script also needs a manpage
 * Support for Inline needs some love
 * Consider supporting JSON::Any
+* Consider adding some handy CPAN::Meta* support
