@@ -68,7 +68,7 @@ Petr Šabata <contyk@redhat.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2014 Petr Šabata
+Copyright (c) 2014-2015 Petr Šabata
 
 See LICENSE for licensing details.
 
