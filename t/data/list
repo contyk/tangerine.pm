@@ -7,3 +7,4 @@ use ok 'India';
 use ok qw/Julliet Kilo/;
 use base;
 use aliased "Lima" => "Mike";
+use superclass '-norequire', qw(November Oscar), Papa => '1.00';

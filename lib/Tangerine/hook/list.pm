@@ -13,7 +13,7 @@ extends 'Tangerine::Hook';
 sub run {
     my ($self, $s) = @_;
     if ((any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) > 2 &&
-        (any { $s->[1] eq $_ } qw(aliased base ok parent))) {
+        (any { $s->[1] eq $_ } qw(aliased base ok parent superclass))) {
         my ($version) = $s->[2] =~ /^(\d.*)$/o;
         $version //= '';
         my $voffset = $version ? 3 : 2;
@@ -22,16 +22,24 @@ sub run {
             return if $s->[$voffset] eq ';';
             @args = @$s;
             @args = @args[($voffset) .. $#args];
-            @args = grep { !/^-norequire$/ } @args
-                if $s->[1] eq 'parent';
             @args = stripquotelike(@args);
+            @args = grep { !/^-norequire$/ } @args
+                if any { $s->[1] eq $_ } qw/parent superclass/;
         }
         @args = $args[0] if any { $s->[1] eq $_ } qw/aliased ok/;
+        my %found;
+        for (my $i = 0; $i < scalar(@args); $i++) {
+            $found{$args[$i]} = '';
+            if ($args[$i+1] && $args[$i+1] =~ /^v?\d+(\.\d+)*$/) {
+                $found{$args[$i]} = $args[$i+1];
+                $i++
+            }
+        }
         return Tangerine::HookData->new(
             modules => {
                 map {
-                    ( $_ => Tangerine::Occurence->new() )
-                    } @args,
+                    ( $_ => Tangerine::Occurence->new(version => $found{$_}) )
+                    } keys %found,
                 },
             );
     }
@@ -55,12 +63,12 @@ Tangerine::hook::list - Process simple module lists.
 This hook catches C<use> statements with modules loading more modules
 listed as their arguments.
 
-Currently this hook knows about L<aliased>, L<base>, L<Test::use::ok>
-and L<parent>.
+Currently this hook knows about L<aliased>, L<base>, L<Test::use::ok>,
+L<parent> and L<superclass>.
 
 =head1 SEE ALSO
 
-L<Tangerine>, L<aliased>, L<base>, L<Test::use::ok>, L<parent>
+L<Tangerine>, L<aliased>, L<base>, L<Test::use::ok>, L<parent>, L<superclass>
 
 =head1 AUTHOR
 
