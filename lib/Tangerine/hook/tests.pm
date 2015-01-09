@@ -18,6 +18,12 @@ sub run {
         return Tangerine::HookData->new( hooks => [
                 Tangerine::hook::testloading->new(type => 'req') ] );
     }
+    if ((any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) > 1 &&
+        $s->[1] eq 'Test::Requires') {
+        require Tangerine::hook::testrequires;
+        return Tangerine::HookData->new( hooks => [
+                Tangerine::hook::testrequires->new(type => 'req') ] );
+    }
     return;
 }
 

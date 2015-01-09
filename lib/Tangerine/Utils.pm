@@ -9,7 +9,7 @@ sub stripquotelike {
     my @filtered = map {
             if (/^('|").*$/o) {
                 substr $_, 1, -1
-            } elsif (/^(\(|\[).*$/so) {
+            } elsif (/^(\(|\[|\{).*$/so) {
                 stripquotelike(split /,|=>/so, substr $_, 1, -1)
             } elsif (/^qq?\s*[^\w](.*)[^\w]$/so) {
                 $1
