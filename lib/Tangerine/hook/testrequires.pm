@@ -13,7 +13,6 @@ extends 'Tangerine::Hook';
 sub run {
     my ($self, $s) = @_;
     my %found;
-    # TODO: This is a use hook
     if ($self->type eq 'use' &&
         (any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) > 2 &&
         $s->[1] eq 'Test::Requires') {
@@ -33,7 +32,6 @@ sub run {
         } else {
             %found = map { $_ => '' } @args;
         }
-    # TODO: This is a require hook
     } elsif ($self->type eq 'req' &&
         $s->[0] eq 'test_requires' && scalar(@$s) > 1) {
         return if $s->[1] eq ';';
