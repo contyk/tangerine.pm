@@ -12,4 +12,3 @@ Something to work on:
 * Support for Inline needs some love
 * Consider supporting JSON::Any
 * Consider adding some handy CPAN::Meta* support
-* Support the superclass module
