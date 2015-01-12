@@ -1,3 +1,11 @@
+0.12 2015-01-12
+
+ - Add support for Test::Requires and superclass
+ - Update copyright notices
+ - stripquotelike() now explodes anonymous hashes too
+ - The XXX hook now doesn't require YAML on empty imports
+ - `use Inline ()' now works somewhat better
+
 0.11 2014-11-26
 
  - Moose-like support rewritten -- we now detect versions and avoid indirect
