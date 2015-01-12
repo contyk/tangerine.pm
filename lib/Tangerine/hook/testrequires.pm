@@ -59,13 +59,13 @@ __END__
 
 =head1 NAME
 
-Tangerine::hook::testrequire - Process Test::Requires calls.
+Tangerine::hook::testrequires - Process Test::Requires calls.
 
 =head1 DESCRIPTION
 
 This module inspects L<Test::Requires> use and test_requires() calls
-and inspects their arguments, checking which modules will the
-subroutines load.
+and inspects their arguments, checking which modules the subroutines
+will load.
 
 =head1 SEE ALSO
 
