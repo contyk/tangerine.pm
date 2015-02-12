@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 28;
+use Test::More tests => 20;
 use Tangerine;
 
 my $scanner = Tangerine->new(file => 't/data/prefixedlist');
@@ -8,25 +8,9 @@ my $scanner = Tangerine->new(file => 't/data/prefixedlist');
 ok($scanner->run, 'Prefixed list run');
 
 my %expected = (
-    Inline => {
-        count => 3,
-        lines => [ 4 .. 6 ],
-    },
-    'Inline::C' => {
-        count => 1,
-        lines => [ 4 ],
-    },
-    'Inline::Java' => {
-        count => 1,
-        lines => [ 6 ],
-    },
-    'Inline::X' => {
-        count => 1,
-        lines => [ 5 ],
-    },
     Mo => {
-        count => 2,
-        lines => [ 1, 9 ],
+        count => 1,
+        lines => [ 1 ],
     },
     'Mo::default' => {
         count => 1,

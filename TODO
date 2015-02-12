@@ -9,5 +9,4 @@ Something to work on:
 * Support Module::Runtime (e.g. use_module())
 * The script is a mess; refactor it
 * The script also needs a manpage
-* Support for Inline needs some love
 * Consider adding some handy CPAN::Meta* support

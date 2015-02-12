@@ -1,4 +1,4 @@
-package Tangerine::hook::prefixedlist;
+package Tangerine::hook::inline;
 use 5.010;
 use strict;
 use warnings;
@@ -13,7 +13,7 @@ extends 'Tangerine::Hook';
 sub run {
     my ($self, $s) = @_;
     if ((any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) > 2 &&
-        (any { $s->[1] eq $_ } qw(Mo POE))) {
+        $s->[1] eq 'Inline') {
         my ($version) = $s->[2] =~ /^(\d.*)$/o;
         $version //= '';
         my $voffset = $version ? 3 : 2;
@@ -24,11 +24,20 @@ sub run {
             @args = @args[($voffset) .. $#args];
             @args = stripquotelike(@args);
         }
+        my @modules;
+        if ($args[0] =~ /config/io) {
+            return
+        } elsif ($args[0] =~ /with/io) {
+            shift @args;
+            push @modules, @args;
+        } else {
+            push @modules, 'Inline::'.$args[0];
+        }
         return Tangerine::HookData->new(
             modules => {
                 map {
-                    ( $s->[1].'::'.$_ => Tangerine::Occurence->new() )
-                    } @args,
+                    ( $_ => Tangerine::Occurence->new() )
+                    } @modules,
                 },
             );
     }
@@ -45,15 +54,13 @@ __END__
 
 =head1 NAME
 
-Tangerine::hook::prefixedlist - Process simple sub-module lists.
+Tangerine::hook::inline - Process Inline module use statements.
 
 =head1 DESCRIPTION
 
-This hook catches C<use> statements with modules loading more modules
-listed as their arguments.  The difference from L<Tangerine::hook::list>
-is these modules use the same namespace as the module loading them.
-
-Currently this hook knows about L<Mo> and L<POE>.
+This hook parses L<Inline> arguments and attempts to report required
+C<Inline> language modules or non-C<Inline> modules used for
+configuration, usually loaded via the C<with> syntax.
 
 =head1 AUTHOR
 

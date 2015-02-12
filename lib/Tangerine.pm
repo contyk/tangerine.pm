@@ -21,7 +21,7 @@ has uses => {};
 my %hooks;
 $hooks{prov} = [ qw(package) ];
 $hooks{req} = [ qw(require) ];
-$hooks{use} = [ qw(use list prefixedlist anymoose if mooselike testrequires tests xxx) ];
+$hooks{use} = [ qw(use list prefixedlist anymoose if inline mooselike testrequires tests xxx) ];
 
 sub run {
     my $self = shift;
