@@ -6,7 +6,6 @@ Something to work on:
 * Convert versions in use statements as required, e.g.
   use Exporter 5.7012345_6789 tries to load
   Exporter 5.701234568
-* Support Module::Runtime (e.g. use_module())
 * The script is a mess; refactor it
 * The script also needs a manpage
 * Consider adding some handy CPAN::Meta* support

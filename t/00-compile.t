@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 18;
+use Test::More tests => 19;
 use Test::Script;
 
 for my $file (qw(
@@ -14,6 +14,7 @@ for my $file (qw(
     lib/Tangerine/hook/if.pm
     lib/Tangerine/hook/inline.pm
     lib/Tangerine/hook/list.pm
+    lib/Tangerine/hook/moduleruntime.pm
     lib/Tangerine/hook/mooselike.pm
     lib/Tangerine/hook/package.pm
     lib/Tangerine/hook/prefixedlist.pm
