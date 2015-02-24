@@ -1,3 +1,10 @@
+0.13 2015-02-24
+
+ - Inline is now processed but its own specialized hook, hopefully supporting
+   all the import cases properly (for our purposes at least)
+ - Added support for Module::Runtime and its subs
+ - POD fixes
+
 0.12 2015-01-12
 
  - Add support for Test::Requires and superclass
