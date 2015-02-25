@@ -9,3 +9,6 @@ Something to work on:
 * The script is a mess; refactor it
 * The script also needs a manpage
 * Consider adding some handy CPAN::Meta* support
+* Consider adding support for inc::Module::Install,
+  e.g. create mapping between Module::Install subs and
+  the modules providing them
