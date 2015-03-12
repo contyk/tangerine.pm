@@ -14,3 +14,4 @@ Something to work on:
   the modules providing them
 * Add difference support:
   https://lists.fedoraproject.org/pipermail/perl-devel/2014-October/097871.html
+* Support Module::Load
