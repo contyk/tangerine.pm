@@ -15,3 +15,4 @@ Something to work on:
 * Add difference support:
   https://lists.fedoraproject.org/pipermail/perl-devel/2014-October/097871.html
 * Support Module::Load
+* Support Prima
