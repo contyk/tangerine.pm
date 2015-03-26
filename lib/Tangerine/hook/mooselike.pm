@@ -29,6 +29,7 @@ sub run {
         for (my $i = 1; $i < scalar(@$s); $i++) {
             next if any { $s->[$i] eq $_ } ('=>', ',');
             last if $s->[$i] eq ';';
+            $s->[$i] = substr($s->[$i], 1, -1) if substr($s->[$i], 0, 1) eq '(';
             if (substr($s->[$i], 0, 1) ne '{') {
                 my @parents = stripquotelike($s->[$i]);
                 $last = $parents[-1];
