@@ -1,3 +1,8 @@
+0.14 2015-03-30
+
+ - Mooselike should now parse extends/with statements enclosed in parens
+   somewhat better
+
 0.13 2015-02-24
 
  - Inline is now processed but its own specialized hook, hopefully supporting
