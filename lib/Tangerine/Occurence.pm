@@ -1,11 +1,29 @@
 package Tangerine::Occurence;
 use strict;
 use warnings;
-use Mo qw(default);
+use Tangerine::Utils qw/accessor/;
 
-has version => '';
-has line => 0;
-has extra => {};
+sub new {
+    my $class = shift;
+    my %args = @_;
+    bless {
+        _version => $args{version},
+        _line => $args{line} // 0,
+        _extra => $args{extra} // {},
+    }, $class
+}
+
+sub version {
+    accessor('_version', @_)
+}
+
+sub line {
+    accessor('_line', @_)
+}
+
+sub extra {
+    accessor('_extra', @_)
+}
 
 1;
 

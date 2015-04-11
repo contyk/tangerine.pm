@@ -1,9 +1,19 @@
 package Tangerine::Hook;
 use strict;
 use warnings;
-use Mo qw(default);
+use Tangerine::Utils qw/accessor/;
 
-has type => '';
+sub new {
+    my $class = shift;
+    my %args = @_;
+    bless {
+        _type => $args{type},
+    }, $class
+}
+
+sub type {
+    accessor('_type', @_)
+}
 
 sub run {
     warn "Hook run() method not implemented.";

@@ -1,11 +1,29 @@
 package Tangerine::HookData;
 use strict;
 use warnings;
-use Mo qw(default);
+use Tangerine::Utils qw/accessor/;
 
-has hooks => [];
-has modules => {};
-has statement => undef;
+sub new {
+    my $class = shift;
+    my %args = @_;
+    bless {
+        _hooks => $args{hooks} // [],
+        _modules => $args{modules} // {},
+        _statement => $args{statement},
+    }, $class
+}
+
+sub hooks {
+    accessor('_hooks', @_)
+}
+
+sub modules {
+    accessor('_modules', @_)
+}
+
+sub statement {
+    accessor('_statement', @_)
+}
 
 1;
 

@@ -1,11 +1,9 @@
 package Tangerine::hook::require;
 use strict;
 use warnings;
-use Mo;
+use parent 'Tangerine::Hook';
 use Tangerine::HookData;
 use Tangerine::Occurence;
-
-extends 'Tangerine::Hook';
 
 sub run {
     my ($self, $s) = @_;

@@ -3,7 +3,12 @@ use strict;
 use warnings;
 use Exporter 'import';
 use List::MoreUtils qw(apply);
-our @EXPORT_OK = qw(addoccurence stripquotelike);
+our @EXPORT_OK = qw(accessor addoccurence stripquotelike);
+
+sub accessor {
+    # TODO: This needs checks
+    $_[1]->{$_[0]} = $_[2] ? $_[2] : $_[1]->{$_[0]}
+}
 
 sub stripquotelike {
     my @filtered = map {

@@ -2,13 +2,11 @@ package Tangerine::hook::mooselike;
 use 5.010;
 use strict;
 use warnings;
+use parent 'Tangerine::Hook';
 use List::MoreUtils qw(any none);
-use Mo;
 use Tangerine::Hook;
 use Tangerine::HookData;
 use Tangerine::Utils qw(stripquotelike);
-
-extends 'Tangerine::Hook';
 
 sub run {
     my ($self, $s) = @_;

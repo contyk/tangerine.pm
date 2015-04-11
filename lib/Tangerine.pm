@@ -6,25 +6,48 @@ use warnings;
 use utf8;
 use PPI;
 use List::MoreUtils qw(none);
-use Mo qw(default);
 use Scalar::Util qw(blessed);
 use Tangerine::Hook;
 use Tangerine::Occurence;
-use Tangerine::Utils qw(addoccurence);
+use Tangerine::Utils qw(accessor addoccurence);
 
-has file => '';
-has mode => 'all';
-has provides => {};
-has requires => {};
-has uses => {};
+sub new {
+    my $class = shift;
+    my %args = @_;
+    bless {
+        _file => $args{file},
+        _mode => $args{mode},
+        _hooks => {
+            prov => [ qw/package/ ],
+            req => [ qw/require/ ],
+            use => [ qw/use list prefixedlist anymoose if inline moduleruntime
+                mooselike testrequires tests xxx/ ],
+        },
+        _package => {},
+        _compile => {},
+        _runtime => {},
+    }, $class
+}
 
-my %hooks;
-$hooks{prov} = [ qw(package) ];
-$hooks{req} = [ qw(require) ];
-$hooks{use} = [
-    qw(use list prefixedlist anymoose if inline moduleruntime mooselike
-       testrequires tests xxx)
-    ];
+sub file {
+    accessor('_file', @_)
+}
+
+sub mode {
+    accessor('_mode', @_)
+}
+
+sub provides {
+    accessor('_package', @_)
+}
+
+sub requires {
+    accessor('_runtime', @_)
+}
+
+sub uses {
+    accessor('_compile', @_)
+}
 
 sub run {
     my $self = shift;
@@ -36,7 +59,7 @@ sub run {
     my $statements = $document->find('Statement') or return 1;
     my @hooks;
     for my $type (qw(prov req use)) {
-        for my $hname (@{$hooks{$type}}) {
+        for my $hname (@{$self->{_hooks}->{$type}}) {
             my $hook = "Tangerine::hook::$hname";
             eval "require $hook";
             push @hooks, $hook->new(type => $type);
@@ -60,7 +83,7 @@ sub run {
         }
         for my $hook (@hooks) {
             if (my $data = $hook->run($children)) {
-                my $modules = $data->{modules};
+                my $modules = $data->modules;
                 for my $k (keys %$modules) {
                     if ($k =~ /[\$%@\*]/o ||
                         $k =~ /^('|"|qq?\s*[^\w])/o ||

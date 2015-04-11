@@ -2,12 +2,10 @@ package Tangerine::hook::tests;
 use 5.010;
 use strict;
 use warnings;
+use parent 'Tangerine::Hook';
 use List::MoreUtils qw(any);
-use Mo;
 use Tangerine::Hook;
 use Tangerine::HookData;
-
-extends 'Tangerine::Hook';
 
 sub run {
     my ($self, $s) = @_;

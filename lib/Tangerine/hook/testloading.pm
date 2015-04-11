@@ -1,13 +1,11 @@
 package Tangerine::hook::testloading;
 use strict;
 use warnings;
+use parent 'Tangerine::Hook';
 use List::MoreUtils qw/any/;
-use Mo;
 use Tangerine::HookData;
 use Tangerine::Occurence;
 use Tangerine::Utils qw(stripquotelike);
-
-extends 'Tangerine::Hook';
 
 sub run {
     my ($self, $s) = @_;
