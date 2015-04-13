@@ -7,10 +7,14 @@ sub new {
     my $class = shift;
     my %args = @_;
     bless {
+        _children => $args{children} // [],
         _hooks => $args{hooks} // [],
         _modules => $args{modules} // {},
-        _statement => $args{statement},
     }, $class
+}
+
+sub children {
+    accessor('_children', @_)
 }
 
 sub hooks {
@@ -19,10 +23,6 @@ sub hooks {
 
 sub modules {
     accessor('_modules', @_)
-}
-
-sub statement {
-    accessor('_statement', @_)
 }
 
 1;

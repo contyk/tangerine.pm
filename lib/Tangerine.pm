@@ -16,7 +16,7 @@ sub new {
     my %args = @_;
     bless {
         _file => $args{file},
-        _mode => $args{mode},
+        _mode => $args{mode} // 'all',
         _hooks => {
             prov => [ qw/package/ ],
             req => [ qw/require/ ],
@@ -106,8 +106,8 @@ sub run {
                 } elsif ($hook->type eq 'use') {
                     $self->uses(addoccurence($self->uses, $modules));
                 }
-                if ($data->{hooks}) {
-                    for my $newhook (@{$data->{hooks}}) {
+                if (@{$data->hooks}) {
+                    for my $newhook (@{$data->hooks}) {
                         next if ($newhook->type eq 'prov') && ($self->mode =~ /^[dru]/o);
                         next if ($newhook->type eq 'req') && ($self->mode =~ /^[pu]/o);
                         next if ($newhook->type eq 'use') && ($self->mode =~ /^[pr]/o);
@@ -118,8 +118,8 @@ sub run {
                             } @hooks;
                     }
                 }
-                if ($data->{children}) {
-                    $children = $data->{children};
+                if (@{$data->children}) {
+                    $children = $data->children;
                     redo STATEMENT;
                 }
             }
