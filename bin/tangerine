@@ -50,14 +50,13 @@ if ($flags{compact}) {
 
 my @filelist;
 my (%provides, %requires, %uses);
+my $findrule = $flags{all} ?
+    File::Find::Rule->file() :
+    File::Find::Rule->perl_file();
 
 for my $arg (@ARGV) {
     if (-d $arg) {
-        if ($flags{all}) {
-            push @filelist, File::Find::Rule->file->in($arg);
-        } else {
-            push @filelist, File::Find::Rule->perl_file->in($arg);
-        }
+        push @filelist, $findrule->in($arg);
     } elsif (-f $arg) {
         push @filelist, $arg;
     } else {
