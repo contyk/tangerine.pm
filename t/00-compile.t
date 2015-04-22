@@ -1,10 +1,9 @@
 use strict;
 use warnings;
-use Test::More tests => 19;
+use Test::More tests => 18;
 use Test::Script;
 
 for my $file (qw(
-    bin/tangerine
     lib/Tangerine.pm
     lib/Tangerine/HookData.pm
     lib/Tangerine/Hook.pm
