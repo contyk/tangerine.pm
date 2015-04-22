@@ -1,5 +1,5 @@
 package Tangerine;
-# ABSTRACT: Analyse perl files and report module-related information
+# ABSTRACT: Examine perl files and report dependency metadata
 use 5.010;
 use strict;
 use warnings;
@@ -29,25 +29,16 @@ sub new {
     }, $class
 }
 
-sub file {
-    accessor('_file', @_)
-}
+sub file { accessor _file => @_ }
+sub mode { accessor _mode => @_ }
 
-sub mode {
-    accessor('_mode', @_)
-}
-
-sub provides {
-    accessor('_package', @_)
-}
-
-sub requires {
-    accessor('_runtime', @_)
-}
-
-sub uses {
-    accessor('_compile', @_)
-}
+sub package { accessor _package => @_ }
+sub compile { accessor _compile => @_ }
+sub runtime { accessor _runtime => @_ }
+# For pre-0.15 compatibility
+sub provides { accessor _package => @_ }
+sub requires { accessor _runtime => @_ }
+sub uses { accessor _compile => @_ }
 
 sub run {
     my $self = shift;

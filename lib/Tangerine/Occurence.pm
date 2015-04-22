@@ -13,17 +13,9 @@ sub new {
     }, $class
 }
 
-sub version {
-    accessor('_version', @_)
-}
-
-sub line {
-    accessor('_line', @_)
-}
-
-sub extra {
-    accessor('_extra', @_)
-}
+sub version { accessor _version => @_ }
+sub line { accessor _line => @_  }
+sub extra { accessor _extra => @_  }
 
 1;
 

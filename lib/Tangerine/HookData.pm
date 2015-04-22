@@ -13,17 +13,9 @@ sub new {
     }, $class
 }
 
-sub children {
-    accessor('_children', @_)
-}
-
-sub hooks {
-    accessor('_hooks', @_)
-}
-
-sub modules {
-    accessor('_modules', @_)
-}
+sub children { accessor _children => @_  }
+sub hooks { accessor _hooks => @_  }
+sub modules { accessor _modules => @_  }
 
 1;
 

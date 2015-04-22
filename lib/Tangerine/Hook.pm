@@ -11,12 +11,10 @@ sub new {
     }, $class
 }
 
-sub type {
-    accessor('_type', @_)
-}
+sub type { accessor _type => @_ }
 
 sub run {
-    warn "Hook run() method not implemented.";
+    warn "Hook run() method not implemented."
 }
 
 1;
