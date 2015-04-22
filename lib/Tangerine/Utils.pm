@@ -54,7 +54,7 @@ __END__
 
 =head1 NAME
 
-Tangerine::Utils - A set of routines used by various L<Tangerine> modules.
+Tangerine::Utils - A set of routines used by various L<Tangerine> modules
 
 =head1 DESCRIPTION
 
@@ -63,6 +63,10 @@ This module exports the various routines used by L<Tangerine> internals.
 =head1 ROUTINES
 
 =over
+
+=item C<accessor>
+
+A helper routine to generate common attribute accessors.
 
 =item C<stripquotelike>
 

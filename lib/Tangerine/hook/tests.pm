@@ -14,13 +14,13 @@ sub run {
             qw(Test::Inter Test::Modern Test::More Test::Strict))) {
         require Tangerine::hook::testloading;
         return Tangerine::HookData->new( hooks => [
-                Tangerine::hook::testloading->new(type => 'req') ] );
+                Tangerine::hook::testloading->new(type => 'runtime') ] );
     }
     if ((any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) > 1 &&
         $s->[1] eq 'Test::Requires') {
         require Tangerine::hook::testrequires;
         return Tangerine::HookData->new( hooks => [
-                Tangerine::hook::testrequires->new(type => 'req') ] );
+                Tangerine::hook::testrequires->new(type => 'runtime') ] );
     }
     return;
 }
@@ -36,7 +36,7 @@ __END__
 =head1 NAME
 
 Tangerine::hook::tests - Detect testing modules being loaded and
-register additional hooks.
+register additional hooks
 
 =head1 DESCRIPTION
 

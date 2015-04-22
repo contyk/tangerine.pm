@@ -10,14 +10,14 @@ use Tangerine::Utils qw(stripquotelike);
 
 sub run {
     my ($self, $s) = @_;
-    if ($self->type eq 'use' && $s->[0] eq 'use' &&
+    if ($self->type eq 'compile' && $s->[0] eq 'use' &&
         scalar(@$s) > 1 && (any { $s->[1] eq $_ } qw(Moose Mouse Moo Mo))) {
         return Tangerine::HookData->new(
                 hooks => [
-                    Tangerine::hook::mooselike->new(type => 'req'),
+                    Tangerine::hook::mooselike->new(type => 'runtime'),
                 ],
             );
-    } elsif ($self->type eq 'req' && any { $s->[0] eq $_ } qw(extends with)) {
+    } elsif ($self->type eq 'runtime' && any { $s->[0] eq $_ } qw(extends with)) {
         if (scalar(@$s) > 2 && none { $s->[2] eq $_ } ('=>', ',', ';')) {
             # Bail out; most likely an indirect object method call
             return
@@ -62,7 +62,7 @@ __END__
 =head1 NAME
 
 Tangerine::hook::mooselike - Detect Moose-like modules being loaded and
-checks for C<extends> and C<with> statements.
+checks for C<extends> and C<with> statements
 
 =head1 DESCRIPTION
 

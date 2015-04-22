@@ -27,13 +27,13 @@ __END__
 
 =head1 NAME
 
-Tangerine::Occurence - A simple object describing a provide, require or
-use-like statement occurence in the analysed document.
+Tangerine::Occurence - A simple object describing a package, compile or
+runtime statement occurence in the examined document
 
 =head1 DESCRIPTION
 
-Instances of this object are returned by C<provides>, C<requires> and
-C<uses> L<Tangerine> methods.
+Instances of this object are returned by C<package>, C<compile> and
+Cruntime> L<Tangerine> methods.
 
 =head1 METHODS
 
@@ -49,7 +49,8 @@ Returns the required version of a used module, if applicable.
 
 =item C<extra>
 
-Returns a hash reference with additional extra flags.  This is currently unused.
+Returns a hash reference with additional extra flags.  This is currently
+unused.
 
 =back
 

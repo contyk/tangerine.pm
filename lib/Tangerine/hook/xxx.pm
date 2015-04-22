@@ -11,7 +11,7 @@ use Tangerine::Utils qw/stripquotelike/;
 sub run {
     my ($self, $s) = @_;
     if ((any { $s->[0] eq $_ } qw(use no)) &&
-        scalar(@$s) > 2 && $s->[1] eq 'XXX' && $self->type eq 'use') {
+        scalar(@$s) > 2 && $s->[1] eq 'XXX') {
         my $module;
         if ($s->[2] eq '-dumper') {
             $module = 'Data::Dumper';
@@ -37,7 +37,7 @@ __END__
 
 =head1 NAME
 
-Tangerine::hook::xxx - Detect L<XXX> module loading.
+Tangerine::hook::xxx - Detect L<XXX> module loading
 
 =head1 DESCRIPTION
 

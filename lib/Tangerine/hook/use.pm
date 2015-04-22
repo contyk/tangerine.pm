@@ -35,11 +35,11 @@ __END__
 
 =head1 NAME
 
-Tangerine::hook::use - Process C<use> statements.
+Tangerine::hook::use - Process C<use> statements
 
 =head1 DESCRIPTION
 
-This is a basic C<use> type hook, simply looking for C<use> statements,
+This is a basic C<compile> type hook, simply looking for C<use> statements,
 not doing anything fancy.
 
 =head1 SEE ALSO

@@ -27,7 +27,7 @@ __END__
 
 =head1 NAME
 
-Tangerine::HookData - An envelope for data returned from a hook.
+Tangerine::HookData - An envelope for data returned from a hook
 
 =head1 SYNOPSIS
 
@@ -36,28 +36,28 @@ Tangerine::HookData - An envelope for data returned from a hook.
             'ExtUtils::MakeMaker' => [
                 Tangerine::Occurence->new(
                     line => 3,
-                    version => '6.30'
-                )
+                    version => '6.30',
+                ),
             ],
         },
         hooks => [
             Tangerine::Hook->new(
-                type => 'use',
-                run => \&Tangerine::hook::myhook::run
-            )
+                type => 'compile',
+                run => \&Tangerine::hook::myhook::run,
+            ),
         ],
         statement => [ qw/myhook_statement with_args ;/ ]
     );
 
 =head1 DESCRIPTION
 
-Hooks used this class to encapsulate their results before returning them
-to the Tangerine object.
+Hooks use this class to encapsulate their results before returning them
+to the main Tangerine object.
 
 A hook may return a hash reference of module names pointing to lists of
 L<Tangerine::Occurence> objects, a list reference of L<Tangerine::Hook>
 objects that should be added to the list of hooks to run and a statement
-which should be analysed in the context of the current line.
+which should be parsed in the context of the current line.
 
 =head1 METHODS
 

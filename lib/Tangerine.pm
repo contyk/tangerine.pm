@@ -18,10 +18,10 @@ sub new {
         _file => $args{file},
         _mode => $args{mode} // 'all',
         _hooks => {
-            prov => [ qw/package/ ],
-            req => [ qw/require/ ],
-            use => [ qw/use list prefixedlist anymoose if inline moduleruntime
-                mooselike testrequires tests xxx/ ],
+            package => [ qw/package/ ],
+            compile => [ qw/use list prefixedlist anymoose if inline
+                moduleruntime mooselike testrequires tests xxx/ ],
+            runtime => [ qw/require/ ],
         },
         _package => {},
         _compile => {},
@@ -44,12 +44,13 @@ sub run {
     my $self = shift;
     return 0 unless -r $self->file;
     $self->mode('all')
-        unless $self->mode =~ /^(a(ll)?|p(rov)?|d(ep)?|r(eq)?|u(se)?)$/;
+        unless $self->mode =~
+            /^(a(ll)?|p(ackage|rov)?|compile|d(ep)?|r(untime|eq)?|u(se)?)$/;
     my $document = PPI::Document->new($self->file, readonly => 1);
     return 0 unless $document;
     my $statements = $document->find('Statement') or return 1;
     my @hooks;
-    for my $type (qw(prov req use)) {
+    for my $type (qw(package compile runtime)) {
         for my $hname (@{$self->{_hooks}->{$type}}) {
             my $hook = "Tangerine::hook::$hname";
             eval "require $hook";
@@ -57,10 +58,10 @@ sub run {
         }
     }
     @hooks = grep {
-            if ($self->mode =~ /^a(ll)?$/o ||
-                $_->type eq 'prov' && $self->mode =~ /^p/o ||
-                $_->type eq 'req' && $self->mode =~ /^[dr]/o ||
-                $_->type eq 'use' && $self->mode =~ /^[du]/o) {
+            if ($self->mode =~ /^a/o ||
+                $_->type eq 'package' && $self->mode =~ /^p/o ||
+                $_->type eq 'compile' && $self->mode =~ /^[cdu]/o ||
+                $_->type eq 'runtime' && $self->mode =~ /^[dr]/o) {
                 $_
             }
         } @hooks;
@@ -89,18 +90,18 @@ sub run {
                     }
                     $modules->{$k}->line($statement->line_number);
                 }
-                if ($hook->type eq 'prov') {
-                    $self->provides(addoccurence($self->provides, $modules));
-                } elsif ($hook->type eq 'req') {
-                    $self->requires(addoccurence($self->requires, $modules));
-                } elsif ($hook->type eq 'use') {
-                    $self->uses(addoccurence($self->uses, $modules));
+                if ($hook->type eq 'package') {
+                    $self->package(addoccurence($self->package, $modules));
+                } elsif ($hook->type eq 'compile') {
+                    $self->compile(addoccurence($self->compile, $modules));
+                } elsif ($hook->type eq 'runtime') {
+                    $self->runtime(addoccurence($self->runtime, $modules));
                 }
                 if (@{$data->hooks}) {
                     for my $newhook (@{$data->hooks}) {
-                        next if ($newhook->type eq 'prov') && ($self->mode =~ /^[dru]/o);
-                        next if ($newhook->type eq 'req') && ($self->mode =~ /^[pu]/o);
-                        next if ($newhook->type eq 'use') && ($self->mode =~ /^[pr]/o);
+                        next if ($newhook->type eq 'package') && ($self->mode =~ /^[dcru]/o);
+                        next if ($newhook->type eq 'runtime') && ($self->mode =~ /^[pcu]/o);
+                        next if ($newhook->type eq 'compile') && ($self->mode =~ /^[pr]/o);
                         push @hooks, $newhook
                             if none {
                                 blessed($newhook) eq blessed($_) &&
@@ -129,7 +130,7 @@ __END__
 
 =head1 NAME
 
-Tangerine - Analyse perl files and report module-related information
+Tangerine - Examine perl files and report dependency metadata
 
 =head1 SYNOPSIS
 
@@ -140,22 +141,22 @@ Tangerine - Analyse perl files and report module-related information
     $scanner->run;
 
     print "$file contains the following modules: ".
-        join q/, /, sort keys %{$scanner->provides}."\n";
+        join q/, /, sort keys %{$scanner->package}."\n";
 
-    print "$file requires Exporter on the following lines: ".
-        join q/, /, sort map $_->line, @{$scanner->requires->{Exporter}}."\n";
+    print "$file requires Exporter, at runtime, on the following lines: ".
+        join q/, /, sort map $_->line, @{$scanner->runtime->{Exporter}}."\n";
 
     my $v = 0;
-    for ( @{$scanner->uses->{'Test::More'}}) {
+    for (@{$scanner->compile->{'Test::More'}}) {
         $v = $_->version if $_->version && qv($v) < qv($_->version)
     }
-    print "The minimum version of Test::More required by $file is $v\n";
+    print "The minimum version of Test::More required by $file is $v.\n";
 
 =head1 DESCRIPTION
 
-Tangerine statically analyses perl files and reports various information
-about provided, used (compile-time dependencies) and required (runtime
-dependencies) modules.
+Tangerine examines perl files and reports dependency metadata -- provided
+modules, and both compile-time and run-time dependencies, along with line
+numbers, versions and possibly other related information.
 
 Currently, PPI is used for the initial parsing and statement extraction.
 
@@ -167,10 +168,9 @@ Currently, PPI is used for the initial parsing and statement extraction.
 
 Creates the Tangerine object.  Takes the following two named arguments:
 
-    'file', the file to analyse
-    'mode', what should we look for; may be one of 'all', 'prov', 'dep',
-        'req' or 'use'.  'dep' implies both 'req' and 'use'.  Single
-        letter abbreviations are also accepted.
+    'file', the file to examine
+    'mode', determines what to look for; may be one of 'all',
+        'package', 'compile', or 'runtime'.
 
 Both arguments are optional, however, 'file' needs to be set before
 running the scanner, e.g.
@@ -189,20 +189,28 @@ running the scanner, e.g.
 
 Runs the analysis.
 
-=item C<provides>
+=item C<package>
 
 Returns a hash reference.  Keys are the modules provided, values
-references to lists of Tangerine::Occurence objects.
+references to lists of L<Tangerine::Occurence> objects.
+
+=item C<compile>
+
+Returns a hash reference.  Keys are the modules required at compile-time,
+values references to lists of L<Tangerine::Occurence> objects.
+
+=item C<runtime>
+
+Returns a hash reference.  Keys are the modules required at run-time,
+values references to lists of L<Tangerine::Occurence> objects.
+
+=item C<provides>
 
 =item C<requires>
 
-Returns a hash reference.  Keys are the modules required at run-time,
-values references to lists of Tangerine::Occurence objects.
-
 =item C<uses>
 
-Returns a hash reference.  Keys are the modules required at compile-time,
-values references to lists of Tangerine::Occurence objects.
+Deprecated.  These are provided for backwards compatibility only.
 
 =back
 

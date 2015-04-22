@@ -43,7 +43,7 @@ __END__
 
 =head1 NAME
 
-Tangerine::hook::prefixedlist - Process simple sub-module lists.
+Tangerine::hook::prefixedlist - Process simple sub-module lists
 
 =head1 DESCRIPTION
 

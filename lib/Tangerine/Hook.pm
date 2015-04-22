@@ -27,19 +27,18 @@ __END__
 
 =head1 NAME
 
-Tangerine::Hook - A simple hook class.
+Tangerine::Hook - A simple hook class
 
 =head1 SYNOPSIS
 
     package MyHook;
-    use Mo;
+    use parent 'Tangerine::Hook';
     use Tangerine::HookData;
     use Tangerine::Occurence;
-    extends 'Tangerine::Hook';
 
     sub run {
         my ($self, $s) = @_;
-        if ($s->[0] eq 'use' && $self->type eq 'use' &&
+        if ($s->[0] eq 'use' && $self->type eq 'compile' &&
             $s->[1] && $s->[1] eq 'MyModule') {
             return Tangerine::HookData->new(
                 modules => { MyModule => Tangerine::Occurence->new },
@@ -53,8 +52,8 @@ Tangerine::Hook - A simple hook class.
 Hooks are the workhorses of Tangerine, examining the actual code and
 returning L<Tangerine::HookData> where applicable.
 
-Every hook has a type, which can be one of 'prov', 'req' or 'use',
-set by the caller and determining what she is interested in.
+Every hook has a type, which can be one of 'package', 'compile' or
+'runtime', set by the caller and determining what she is interested in.
 
 Every hook should implement the C<run> method which is passed an array
 reference containing the significant children (see L<PPI::Statement>)
@@ -71,7 +70,8 @@ all these may be returned at once.
 
 =item C<type>
 
-Returns or sets the hook type.  May be one of C<prov>, C<req> or C<use>.
+Returns or sets the hook type.  May be one of C<package>, C<compile>
+or C<runtime>.
 
 =item C<run>
 

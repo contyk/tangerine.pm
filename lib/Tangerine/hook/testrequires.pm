@@ -11,7 +11,7 @@ use Tangerine::Utils qw(stripquotelike);
 sub run {
     my ($self, $s) = @_;
     my %found;
-    if ($self->type eq 'use' &&
+    if ($self->type eq 'compile' &&
         (any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) > 2 &&
         $s->[1] eq 'Test::Requires') {
         my ($version) = $s->[2] =~ /^(\d.*)$/o;
@@ -30,7 +30,7 @@ sub run {
         } else {
             %found = map { $_ => '' } @args;
         }
-    } elsif ($self->type eq 'req' &&
+    } elsif ($self->type eq 'runtime' &&
         $s->[0] eq 'test_requires' && scalar(@$s) > 1) {
         return if $s->[1] eq ';';
         my @args = stripquotelike((@$s)[1..$#$s]);
@@ -57,7 +57,7 @@ __END__
 
 =head1 NAME
 
-Tangerine::hook::testrequires - Process Test::Requires calls.
+Tangerine::hook::testrequires - Process Test::Requires calls
 
 =head1 DESCRIPTION
 

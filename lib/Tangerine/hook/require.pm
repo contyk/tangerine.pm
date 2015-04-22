@@ -27,11 +27,11 @@ __END__
 
 =head1 NAME
 
-Tangerine::hook::require - Process C<require> statements.
+Tangerine::hook::require - Process C<require> statements
 
 =head1 DESCRIPTION
 
-This is a basic C<req> type hook, simply looking for C<require> statements.
+This is a basic C<runtime> type hook, simply looking for C<require> statements.
 
 =head1 SEE ALSO
 

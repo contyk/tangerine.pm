@@ -36,7 +36,7 @@ __END__
 
 =head1 NAME
 
-Tangerine::hook::anymoose - Process C<use Any::Moose> statements.
+Tangerine::hook::anymoose - Process C<use Any::Moose> statements
 
 =head1 DESCRIPTION
 

@@ -54,7 +54,7 @@ __END__
 
 =head1 NAME
 
-Tangerine::hook::list - Process simple module lists.
+Tangerine::hook::list - Process simple module lists
 
 =head1 DESCRIPTION
 

@@ -52,7 +52,7 @@ __END__
 
 =head1 NAME
 
-Tangerine::hook::inline - Process Inline module use statements.
+Tangerine::hook::inline - Process Inline module use statements
 
 =head1 DESCRIPTION
 

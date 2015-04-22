@@ -36,12 +36,12 @@ __END__
 =head1 NAME
 
 Tangerine::hook::testloading - Process various test-suite module loading
-statements.
+statements
 
 =head1 DESCRIPTION
 
-Detect <use_ok()> and <require_ok()> subroutine calls.  This is
-C<require>-style dependency.
+Detect <use_ok()> and <require_ok()> subroutine calls.  These are
+C<runtime> dependencies.
 
 =head1 SEE ALSO
 

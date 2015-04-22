@@ -28,11 +28,11 @@ __END__
 
 =head1 NAME
 
-Tangerine::hook::package - Process C<package> statements.
+Tangerine::hook::package - Process C<package> statements
 
 =head1 DESCRIPTION
 
-This is a basic C<prov> type hook, simply looking for C<package> statements.
+This is a basic C<package> type hook, simply looking for C<package> statements.
 
 =head1 SEE ALSO
 

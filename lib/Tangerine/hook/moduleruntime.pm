@@ -14,11 +14,11 @@ sub run {
     if ((any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) > 1 &&
         $s->[1] eq 'Module::Runtime') {
         return Tangerine::HookData->new( hooks => [
-                Tangerine::hook::moduleruntime->new(type => 'req') ] );
+                Tangerine::hook::moduleruntime->new(type => 'runtime') ] );
     }
     # NOTE: For the sake of simplicity, we only check for one subroutine
     #       call per statement.
-    if ($self->type eq 'req' && any { my $f = $_; any { $_ eq $f } @$s }
+    if ($self->type eq 'runtime' && any { my $f = $_; any { $_ eq $f } @$s }
         @routines) {
         while (none { $s->[0] eq $_ } @routines) {
             shift @$s;
