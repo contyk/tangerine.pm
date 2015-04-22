@@ -6,14 +6,10 @@ Something to work on:
 * Convert versions in use statements as required, e.g.
   use Exporter 5.7012345_6789 tries to load
   Exporter 5.701234568
-* The script is a mess; refactor it
-* The script also needs a manpage
 * Consider adding some handy CPAN::Meta* support
 * Consider adding support for inc::Module::Install,
   e.g. create mapping between Module::Install subs and
   the modules providing them
-* Add difference support:
-  https://lists.fedoraproject.org/pipermail/perl-devel/2014-October/097871.html
 * Support Module::Load
 * Support Prima
 * Support Tk::widgets
