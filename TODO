@@ -1,5 +1,11 @@
 Something to work on:
 
+Bugs:
+
+* stripquotelike() filters unquoted zeroes
+
+Features:
+
 * Parse EXPR form of eval
 * A new Tangerine method to report required perl version
 * Allow users to specify additional hooks to run
