@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use Test::More tests => 18;
-use Test::Script;
 
 for my $file (qw(
     lib/Tangerine.pm
@@ -23,5 +22,5 @@ for my $file (qw(
     lib/Tangerine/hook/testrequires.pm
     lib/Tangerine/hook/use.pm
     )) {
-        script_compiles($file, "$file compiles");
+        require_ok $file;
     }
