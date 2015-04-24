@@ -24,7 +24,7 @@ sub stripquotelike {
                 $_
             }
         } grep {
-            $_ if !/^(,|=>|;)$/so
+            1 if !/^(,|=>|;|)$/so
         } apply {
             s/^\s+|\s+$//sgo;
             $_

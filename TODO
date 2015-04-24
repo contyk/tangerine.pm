@@ -1,9 +1,5 @@
 Something to work on:
 
-Bugs:
-
-* stripquotelike() filters unquoted zeroes
-
 Features:
 
 * Parse EXPR form of eval
