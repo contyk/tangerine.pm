@@ -1,3 +1,16 @@
+0.15 2015-04-24
+
+- The utility now lives in its own distribution, App::Tangerine
+- Renamed provides/requires/uses methods to package/require/compile;
+  the old method names are still available but consider them deprecated
+- Renamed the hook types respectively, from prov/req/use to
+  package/require/compile; this is an internal change
+- Mode accepts the new type names; also, these are now preferred
+- Drop Mo in favour of a simple object system, cutting the dependency chain
+- Simplified module name filtering so it actually works like it should
+- Fixed a nasty bug with explicit zero version requirements
+- Updated documentation
+
 0.14 2015-03-30
 
  - Mooselike should now parse extends/with statements enclosed in parens
