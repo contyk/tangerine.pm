@@ -16,3 +16,4 @@ Features:
 * Support Prima
 * Support Tk::widgets
 * Support mixin::with
+* Support Mojo::Base
