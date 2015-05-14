@@ -218,6 +218,10 @@ Deprecated.  These are provided for backwards compatibility only.
 
 L<Tangerine::Occurence>
 
+=head1 REPOSITORY
+
+L<https://github.com/contyk/tangerine.pm>
+
 =head1 AUTHOR
 
 Petr Šabata <contyk@redhat.com>
