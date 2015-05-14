@@ -3,6 +3,7 @@ Revision history for Perl module Tangerine
 0.17 2015-05-??
 - Added [GithubMeta] to dist.ini, so the repo will be listed in the
   dist metadata.
+- Added [MetaJSON] to dist.ini, so the release will include a META.json file
 
 0.16 2015-05-13
 
