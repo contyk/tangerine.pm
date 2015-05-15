@@ -46,10 +46,10 @@ my %expected = (
     },
 );
 
-is_deeply([sort keys %{$scanner->uses}], [sort keys %expected], 'Prefixed list uses');
+is_deeply([sort keys %{$scanner->compile}], [sort keys %expected], 'Prefixed list compile');
 for (sort keys %expected) {
-    is(scalar @{$scanner->uses->{$_}}, $expected{$_}->{count},
-        "Prefixed list uses count ($_)");
-    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->uses->{$_}} ],
-        $expected{$_}->{lines}, "Prefixed list uses line number ($_)");
+    is(scalar @{$scanner->compile->{$_}}, $expected{$_}->{count},
+        "Prefixed list compile count ($_)");
+    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->compile->{$_}} ],
+        $expected{$_}->{lines}, "Prefixed list compile line number ($_)");
 }

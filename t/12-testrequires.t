@@ -7,7 +7,7 @@ my $scanner = Tangerine->new(file => 't/data/testrequires');
 
 ok($scanner->run, 'Test::Requires run');
 
-my %expecteduses = (
+my %expectedcompile = (
     Alfa => {
         count => 1,
         lines => [ 1 ],
@@ -57,22 +57,22 @@ my %expectedreqs = (
     },
 );
 
-is_deeply([sort keys %{$scanner->uses}], [sort keys %expecteduses], 'Test::Requires uses');
-for (sort keys %expecteduses) {
-    is(scalar @{$scanner->uses->{$_}}, $expecteduses{$_}->{count},
-        "Test::Requires uses count ($_)");
-    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->uses->{$_}} ],
-        $expecteduses{$_}->{lines}, "Requires uses line numbers ($_)");
+is_deeply([sort keys %{$scanner->compile}], [sort keys %expectedcompile], 'Test::Requires compile');
+for (sort keys %expectedcompile) {
+    is(scalar @{$scanner->compile->{$_}}, $expectedcompile{$_}->{count},
+        "Test::Requires compile count ($_)");
+    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->compile->{$_}} ],
+        $expectedcompile{$_}->{lines}, "Requires compile line numbers ($_)");
 }
 
-is_deeply([sort keys %{$scanner->requires}], [sort keys %expectedreqs], 'Test::Requires requires');
+is_deeply([sort keys %{$scanner->runtime}], [sort keys %expectedreqs], 'Test::Requires runtime');
 for (sort keys %expectedreqs) {
-    is(scalar @{$scanner->requires->{$_}}, $expectedreqs{$_}->{count},
-        "Test::Requires requires count ($_)");
-    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->requires->{$_}} ],
-        $expectedreqs{$_}->{lines}, "Requires requires line numbers ($_)");
+    is(scalar @{$scanner->runtime->{$_}}, $expectedreqs{$_}->{count},
+        "Test::Requires runtime count ($_)");
+    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->runtime->{$_}} ],
+        $expectedreqs{$_}->{lines}, "Requires runtime line numbers ($_)");
 }
 
-is($scanner->uses->{Golf}->[0]->version, '1.00', 'Test::Requires Golf version');
-is($scanner->uses->{Hotel}->[0]->version, '2.00', 'Test::Requires Hotel version');
-is($scanner->requires->{Juliett}->[0]->version, '3.00', 'Test::Requires Juliett version');
+is($scanner->compile->{Golf}->[0]->version, '1.00', 'Test::Requires Golf version');
+is($scanner->compile->{Hotel}->[0]->version, '2.00', 'Test::Requires Hotel version');
+is($scanner->runtime->{Juliett}->[0]->version, '3.00', 'Test::Requires Juliett version');

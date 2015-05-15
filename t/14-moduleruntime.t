@@ -28,19 +28,19 @@ my %expectedreq = (
     },
 );
 
-is_deeply([sort keys %{$scanner->uses}], [sort keys %expecteduse], 'Module::Runtime uses');
+is_deeply([sort keys %{$scanner->compile}], [sort keys %expecteduse], 'Module::Runtime compile');
 for (sort keys %expecteduse) {
-    is(scalar @{$scanner->uses->{$_}}, $expecteduse{$_}->{count},
-        "Module::Runtime uses count ($_)");
-    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->uses->{$_}} ],
-        $expecteduse{$_}->{lines}, "Module::Runtime uses line number ($_)");
+    is(scalar @{$scanner->compile->{$_}}, $expecteduse{$_}->{count},
+        "Module::Runtime compile count ($_)");
+    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->compile->{$_}} ],
+        $expecteduse{$_}->{lines}, "Module::Runtime compile line number ($_)");
 }
-is_deeply([sort keys %{$scanner->requires}], [sort keys %expectedreq], 'Module::Runtime requires');
+is_deeply([sort keys %{$scanner->runtime}], [sort keys %expectedreq], 'Module::Runtime runtime');
 for (sort keys %expectedreq) {
-    is(scalar @{$scanner->requires->{$_}}, $expectedreq{$_}->{count},
-        "Module::Runtime requires count ($_)");
-    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->requires->{$_}} ],
-        $expectedreq{$_}->{lines}, "Module::Runtime requires line number ($_)");
+    is(scalar @{$scanner->runtime->{$_}}, $expectedreq{$_}->{count},
+        "Module::Runtime runtime count ($_)");
+    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->runtime->{$_}} ],
+        $expectedreq{$_}->{lines}, "Module::Runtime runtime line number ($_)");
 }
-is($scanner->requires->{Bravo}->[0]->version, '1.23', 'Module::Runtime Bravo version');
-is($scanner->requires->{Charlie}->[0]->version, '4.567', 'Module::Runtime Charlie version');
+is($scanner->runtime->{Bravo}->[0]->version, '1.23', 'Module::Runtime Bravo version');
+is($scanner->runtime->{Charlie}->[0]->version, '4.567', 'Module::Runtime Charlie version');

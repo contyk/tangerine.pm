@@ -7,7 +7,7 @@ my $scanner = Tangerine->new(file => 't/data/tests');
 
 ok($scanner->run, 'Tests run');
 
-my %expecteduses = (
+my %expectedcompile = (
     'Test::More' => {
         count => 1,
         lines => [ 1 ],
@@ -66,7 +66,7 @@ my %expecteduses = (
     },
 );
 
-my %expectedrequires = (
+my %expectedruntime = (
     Echo => {
         count => 1,
         lines => [ 6 ],
@@ -81,17 +81,17 @@ my %expectedrequires = (
     },
 );
 
-is_deeply([sort keys %{$scanner->uses}], [sort keys %expecteduses], 'Tests uses');
-for (sort keys %expecteduses) {
-    is(scalar @{$scanner->uses->{$_}}, $expecteduses{$_}->{count},
-        "Tests uses count ($_)");
-    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->uses->{$_}} ],
-        $expecteduses{$_}->{lines}, "Tests uses line numbers ($_)");
+is_deeply([sort keys %{$scanner->compile}], [sort keys %expectedcompile], 'Tests compile');
+for (sort keys %expectedcompile) {
+    is(scalar @{$scanner->compile->{$_}}, $expectedcompile{$_}->{count},
+        "Tests compile count ($_)");
+    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->compile->{$_}} ],
+        $expectedcompile{$_}->{lines}, "Tests compile line numbers ($_)");
 }
-is_deeply([sort keys %{$scanner->requires}], [sort keys %expectedrequires], 'Tests requires');
-for (sort keys %expectedrequires) {
-    is(scalar @{$scanner->requires->{$_}}, $expectedrequires{$_}->{count},
-        "Tests requires count ($_)");
-    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->requires->{$_}} ],
-        $expectedrequires{$_}->{lines}, "Tests requires line numbers ($_)");
+is_deeply([sort keys %{$scanner->runtime}], [sort keys %expectedruntime], 'Tests runtime');
+for (sort keys %expectedruntime) {
+    is(scalar @{$scanner->runtime->{$_}}, $expectedruntime{$_}->{count},
+        "Tests runtime count ($_)");
+    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->runtime->{$_}} ],
+        $expectedruntime{$_}->{lines}, "Tests runtime line numbers ($_)");
 }

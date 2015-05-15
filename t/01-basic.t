@@ -7,17 +7,17 @@ my $scanner = Tangerine->new(file => 't/data/basic');
 
 ok($scanner->run, 'Basic run');
 
-is_deeply([sort keys %{$scanner->provides}], [qw/Alfa/], 'Basic provides');
-is(scalar @{$scanner->provides->{Alfa}}, 1, 'Basic provides count');
-is($scanner->provides->{Alfa}->[0]->line, 1, 'Basic provides line number');
+is_deeply([sort keys %{$scanner->package}], [qw/Alfa/], 'Basic package');
+is(scalar @{$scanner->package->{Alfa}}, 1, 'Basic package count');
+is($scanner->package->{Alfa}->[0]->line, 1, 'Basic package line number');
 
-is_deeply([sort keys %{$scanner->requires}], [qw/Echo Foxtrot Golf/], 'Basic requires');
-is(scalar @{$scanner->requires->{Echo}}, 1, 'Basic requires count (Echo)');
-is(scalar @{$scanner->requires->{Foxtrot}}, 1, 'Basic requires count (Foxtrot)');
-is(scalar @{$scanner->requires->{Golf}}, 1, 'Basic requires count (Golf)');
-is($scanner->requires->{Echo}->[0]->line, 6, 'Basic requires line number (Echo)');
-is($scanner->requires->{Foxtrot}->[0]->line, 7, 'Basic requires line number (Foxtrot)');
-is($scanner->requires->{Golf}->[0]->line, 8, 'Basic requires line number (Golf)');
+is_deeply([sort keys %{$scanner->runtime}], [qw/Echo Foxtrot Golf/], 'Basic runtime');
+is(scalar @{$scanner->runtime->{Echo}}, 1, 'Basic runtime count (Echo)');
+is(scalar @{$scanner->runtime->{Foxtrot}}, 1, 'Basic runtime count (Foxtrot)');
+is(scalar @{$scanner->runtime->{Golf}}, 1, 'Basic runtime count (Golf)');
+is($scanner->runtime->{Echo}->[0]->line, 6, 'Basic runtime line number (Echo)');
+is($scanner->runtime->{Foxtrot}->[0]->line, 7, 'Basic runtime line number (Foxtrot)');
+is($scanner->runtime->{Golf}->[0]->line, 8, 'Basic runtime line number (Golf)');
 
 my %expected = (
     Bravo => {
@@ -38,10 +38,10 @@ my %expected = (
     },
 );
 
-is_deeply([sort keys %{$scanner->uses}], [sort keys %expected], 'Basic uses');
+is_deeply([sort keys %{$scanner->compile}], [sort keys %expected], 'Basic compile');
 for (sort keys %expected) {
-    is(scalar @{$scanner->uses->{$_}}, $expected{$_}->{count},
-        "Basic uses count ($_)");
-    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->uses->{$_}} ],
-        $expected{$_}->{lines}, "Basic uses line number ($_)");
+    is(scalar @{$scanner->compile->{$_}}, $expected{$_}->{count},
+        "Basic compile count ($_)");
+    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->compile->{$_}} ],
+        $expected{$_}->{lines}, "Basic compile line number ($_)");
 }

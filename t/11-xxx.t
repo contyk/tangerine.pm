@@ -7,7 +7,7 @@ my $scanner = Tangerine->new(file => 't/data/xxx');
 
 ok($scanner->run, 'XXX run');
 
-my %expecteduses = (
+my %expectedcompile = (
     'Data::Dump::Color' => {
         count => 1,
         lines => [ 4 ],
@@ -26,10 +26,10 @@ my %expecteduses = (
     },
 );
 
-is_deeply([sort keys %{$scanner->uses}], [sort keys %expecteduses], 'XXX uses');
-for (sort keys %expecteduses) {
-    is(scalar @{$scanner->uses->{$_}}, $expecteduses{$_}->{count},
-        "XXX uses count ($_)");
-    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->uses->{$_}} ],
-        $expecteduses{$_}->{lines}, "XXX uses line numbers ($_)");
+is_deeply([sort keys %{$scanner->compile}], [sort keys %expectedcompile], 'XXX compile');
+for (sort keys %expectedcompile) {
+    is(scalar @{$scanner->compile->{$_}}, $expectedcompile{$_}->{count},
+        "XXX compile count ($_)");
+    is_deeply([ sort { $a <=> $b } map { $_->line } @{$scanner->compile->{$_}} ],
+        $expectedcompile{$_}->{lines}, "XXX compile line numbers ($_)");
 }
