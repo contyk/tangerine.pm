@@ -17,3 +17,5 @@ Features:
 * Support Tk::widgets
 * Support mixin::with
 * Support Mojo::Base
+* Inline language modules ignore lettercase; handle it
+  the way they do.
