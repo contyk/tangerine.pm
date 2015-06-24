@@ -1,26 +1,27 @@
 use strict;
 use warnings;
-use Test::More tests => 18;
+use Test::More tests => 19;
 
-for my $file (qw(
-    lib/Tangerine.pm
-    lib/Tangerine/HookData.pm
-    lib/Tangerine/Hook.pm
-    lib/Tangerine/Occurence.pm
-    lib/Tangerine/Utils.pm
-    lib/Tangerine/hook/anymoose.pm
-    lib/Tangerine/hook/if.pm
-    lib/Tangerine/hook/inline.pm
-    lib/Tangerine/hook/list.pm
-    lib/Tangerine/hook/moduleruntime.pm
-    lib/Tangerine/hook/mooselike.pm
-    lib/Tangerine/hook/package.pm
-    lib/Tangerine/hook/prefixedlist.pm
-    lib/Tangerine/hook/require.pm
-    lib/Tangerine/hook/tests.pm
-    lib/Tangerine/hook/testloading.pm
-    lib/Tangerine/hook/testrequires.pm
-    lib/Tangerine/hook/use.pm
-    )) {
-        require_ok $file;
-    }
+for my $module (qw/
+    Tangerine
+    Tangerine::Hook
+    Tangerine::HookData
+    Tangerine::Occurence
+    Tangerine::Utils
+    Tangerine::hook::anymoose
+    Tangerine::hook::if
+    Tangerine::hook::inline
+    Tangerine::hook::list
+    Tangerine::hook::moduleruntime
+    Tangerine::hook::mooselike
+    Tangerine::hook::package
+    Tangerine::hook::prefixedlist
+    Tangerine::hook::require
+    Tangerine::hook::testloading
+    Tangerine::hook::testrequires
+    Tangerine::hook::tests
+    Tangerine::hook::use
+    Tangerine::hook::xxx
+    /) {
+    use_ok $module;
+}
