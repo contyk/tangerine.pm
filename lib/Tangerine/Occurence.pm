@@ -1,4 +1,5 @@
 package Tangerine::Occurence;
+
 use strict;
 use warnings;
 use Tangerine::Utils qw/accessor/;

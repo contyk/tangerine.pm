@@ -1,4 +1,5 @@
 package Tangerine::hook::package;
+
 use strict;
 use warnings;
 use parent 'Tangerine::Hook';

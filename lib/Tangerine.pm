@@ -1,4 +1,5 @@
 package Tangerine;
+
 # ABSTRACT: Examine perl files and report dependency metadata
 use 5.010;
 use strict;
