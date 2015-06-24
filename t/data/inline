@@ -5,3 +5,6 @@ use Inline 'CONFIG' => 'foo';
 use Inline 'with';
 use Inline 'with' => 'Alfa';
 use Inline 'with' => qw(Bravo Charlie Delta);
+use Inline PYTHON;
+use Inline py;
+use Inline 'Python';

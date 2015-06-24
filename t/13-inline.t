@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 16;
+use Test::More tests => 18;
 use Tangerine;
 
 my $scanner = Tangerine->new(file => 't/data/inline');
@@ -25,8 +25,8 @@ my %expected = (
         lines => [ 7 ],
     },
     Inline => {
-        count => 7,
-        lines => [ 1 .. 7 ],
+        count => 10,
+        lines => [ 1 .. 10 ],
     },
     'Inline::C' => {
         count => 1,
@@ -35,6 +35,10 @@ my %expected = (
     'Inline::Java' => {
         count => 1,
         lines => [ 3 ],
+    },
+    'Inline::Python' => {
+        count => 3,
+        lines => [ 8 .. 10 ],
     },
 );
 
