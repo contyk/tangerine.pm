@@ -17,3 +17,4 @@ Features:
 * Support Tk::widgets
 * Support mixin::with
 * Support Mojo::Base
+* The Inline hook should also detect Inline::Filters
