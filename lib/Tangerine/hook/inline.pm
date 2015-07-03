@@ -57,6 +57,9 @@ sub run {
         } else {
             push @modules, 'Inline::'.($langmap{$args[0]} // $args[0])
         }
+        if (any { $_ eq 'FILTERS' } @args) {
+            push @modules, 'Inline::Filters'
+        }
         return Tangerine::HookData->new(
             modules => {
                 map {
@@ -84,7 +87,8 @@ Tangerine::hook::inline - Process Inline module use statements
 
 This hook parses L<Inline> arguments and attempts to report required
 C<Inline> language modules or non-C<Inline> modules used for
-configuration, usually loaded via the C<with> syntax.
+configuration, usually loaded via the C<with> syntax.  This hook
+also reports L<Inline::Filters> if C<FILTERS> are invoked.
 
 =head1 AUTHOR
 
