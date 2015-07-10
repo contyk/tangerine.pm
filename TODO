@@ -15,4 +15,3 @@ Features:
 * Support Module::Load
 * Support Prima
 * Support Tk::widgets
-* Support mixin::with
