@@ -12,7 +12,7 @@ use Tangerine::Utils qw(stripquotelike);
 sub run {
     my ($self, $s) = @_;
     if ((any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) > 2 &&
-        (any { $s->[1] eq $_ } qw(Mo POE))) {
+        (any { $s->[1] eq $_ } qw(Mo POE Tk::widgets))) {
         my ($version) = $s->[2] =~ /^(\d.*)$/o;
         $version //= '';
         my $voffset = $version ? 3 : 2;
@@ -23,10 +23,16 @@ sub run {
             @args = @args[($voffset) .. $#args];
             @args = stripquotelike(@args);
         }
+        my $prefix;
+        if ($s->[1] eq 'Tk::widgets') {
+            $prefix = 'Tk'
+        } else {
+            $prefix = $s->[1]
+        }
         return Tangerine::HookData->new(
             modules => {
                 map {
-                    ( $s->[1].'::'.$_ => Tangerine::Occurence->new() )
+                    ( $prefix.'::'.$_ => Tangerine::Occurence->new() )
                     } @args,
                 },
             );

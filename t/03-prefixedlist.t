@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 20;
+use Test::More tests => 28;
 use Tangerine;
 
 my $scanner = Tangerine->new(file => 't/data/prefixedlist');
@@ -43,6 +43,22 @@ my %expected = (
     'POE::Echo' => {
         count => 2,
         lines => [ 2, 3 ],
+    },
+    'Tk::Foxtrot' => {
+        count => 1,
+        lines => [ 4 ],
+    },
+    'Tk::Golf' => {
+        count => 1,
+        lines => [ 4 ],
+    },
+    'Tk::Hotel' => {
+        count => 1,
+        lines => [ 4 ],
+    },
+    'Tk::widgets' => {
+        count => 1,
+        lines => [ 4 ],
     },
 );
 
