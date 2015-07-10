@@ -12,7 +12,7 @@ use Tangerine::Utils qw(stripquotelike);
 sub run {
     my ($self, $s) = @_;
     if ((any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) > 2 &&
-        (any { $s->[1] eq $_ } qw(aliased base ok parent superclass))) {
+        (any { $s->[1] eq $_ } qw(aliased base Mojo::Base ok parent superclass))) {
         my ($version) = $s->[2] =~ /^(\d.*)$/o;
         $version //= '';
         my $voffset = $version ? 3 : 2;
@@ -24,8 +24,11 @@ sub run {
             @args = stripquotelike(@args);
             @args = grep { !/^-norequire$/ } @args
                 if any { $s->[1] eq $_ } qw/parent superclass/;
+            @args = grep { !/^-(base|strict)$/ } @args
+                if $s->[1] eq 'Mojo::Base';
         }
-        @args = $args[0] if any { $s->[1] eq $_ } qw/aliased ok/;
+        @args = $args[0]
+            if $args[0] && any { $s->[1] eq $_ } qw/aliased Mojo::Base ok/;
         my %found;
         for (my $i = 0; $i < scalar(@args); $i++) {
             $found{$args[$i]} = '';

@@ -8,3 +8,6 @@ use ok qw/Julliet Kilo/;
 use base;
 use aliased "Lima" => "Mike";
 use superclass '-norequire', qw(November Oscar), Papa => '1.00';
+use Mojo::Base -base;
+use Mojo::Base -strict;
+use Mojo::Base 'Quebec';
