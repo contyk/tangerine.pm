@@ -20,7 +20,7 @@ sub new {
         _mode => $args{mode} // 'all',
         _hooks => {
             package => [ qw/package/ ],
-            compile => [ qw/use list prefixedlist anymoose if inline
+            compile => [ qw/use list prefixedlist if inline
                 moduleruntime mooselike testrequires tests xxx/ ],
             runtime => [ qw/require/ ],
         },
