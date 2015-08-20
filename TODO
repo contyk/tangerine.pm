@@ -12,5 +12,4 @@ Features:
 * Consider adding support for inc::Module::Install,
   e.g. create mapping between Module::Install subs and
   the modules providing them
-* Support Module::Load
 * Support Prima
