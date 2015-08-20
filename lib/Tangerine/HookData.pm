@@ -11,12 +11,14 @@ sub new {
         _children => $args{children} // [],
         _hooks => $args{hooks} // [],
         _modules => $args{modules} // {},
+        _type => $args{type},
     }, $class
 }
 
 sub children { accessor _children => @_  }
 sub hooks { accessor _hooks => @_  }
 sub modules { accessor _modules => @_  }
+sub type { accessor _type => @_ }
 
 1;
 
@@ -47,7 +49,7 @@ Tangerine::HookData - An envelope for data returned from a hook
                 run => \&Tangerine::hook::myhook::run,
             ),
         ],
-        statement => [ qw/myhook_statement with_args ;/ ]
+        children => [ qw/myhook_statement with_args ;/ ]
     );
 
 =head1 DESCRIPTION
@@ -64,6 +66,12 @@ which should be parsed in the context of the current line.
 
 =over
 
+=item C<children>
+
+Returns or sets the statement to be analysed.  This is a simple list
+reference of significant children.  Tangerine statements are created
+from L<PPI::Statement>'s C<schildren> method.
+
 =item C<hooks>
 
 Returns or sets a list reference of L<Tangerine::Hook> hooks to be run.
@@ -73,11 +81,10 @@ Returns or sets a list reference of L<Tangerine::Hook> hooks to be run.
 Returns or sets a hash reference of module names pointing to list
 references of L<Tangerine::Occurence> objects.
 
-=item C<statement>
+=item C<type>
 
-Returns or sets the statement to be analysed.  This is a simple list
-reference of significant children.  Tangerine statements are created
-from L<PPI::Statement>'s C<schildren> method.
+Forces the data type, overriding the hook's type value.  The possible
+values being C<package>, C<compile>, or C<runtime>.
 
 =back
 

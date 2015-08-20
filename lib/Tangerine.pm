@@ -67,11 +67,12 @@ sub run {
             }
         } @hooks;
     my $children;
+    my $forcetype;
     STATEMENT: for my $statement (@$statements) {
         $children //= [ $statement->schildren ];
         if ($children->[1] &&
             ($children->[1] eq ',' || $children->[1] eq '=>')) {
-            $children = undef;
+            undef $children;
             next STATEMENT
         }
         for my $hook (@hooks) {
@@ -91,11 +92,12 @@ sub run {
                     }
                     $modules->{$k}->line($statement->line_number);
                 }
-                if ($hook->type eq 'package') {
+                my $type = $forcetype // $hook->type;
+                if ($type eq 'package') {
                     $self->package(addoccurence($self->package, $modules));
-                } elsif ($hook->type eq 'compile') {
+                } elsif ($type eq 'compile') {
                     $self->compile(addoccurence($self->compile, $modules));
-                } elsif ($hook->type eq 'runtime') {
+                } elsif ($type eq 'runtime') {
                     $self->runtime(addoccurence($self->runtime, $modules));
                 }
                 if (@{$data->hooks}) {
@@ -112,11 +114,13 @@ sub run {
                 }
                 if (@{$data->children}) {
                     $children = $data->children;
+                    $forcetype = $data->type;
                     redo STATEMENT;
                 }
             }
         }
-        $children = undef;
+        undef $children,
+        undef $forcetype;
     }
     1;
 }
