@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 19;
+use Test::More tests => 18;
 
 for my $module (qw/
     Tangerine
@@ -8,7 +8,6 @@ for my $module (qw/
     Tangerine::HookData
     Tangerine::Occurence
     Tangerine::Utils
-    Tangerine::hook::anymoose
     Tangerine::hook::if
     Tangerine::hook::inline
     Tangerine::hook::list

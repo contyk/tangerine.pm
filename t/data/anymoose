@@ -1,6 +1,0 @@
-use Any::Moose;
-use Any::Moose 'Role';
-use Any::Moose 'Nonseses';
-use Any::Moose 0.18;
-use Any::Moose 0.18 'Role';
-use Any::Moose 0.18 'Nonsense';
