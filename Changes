@@ -1,5 +1,13 @@
 Revision history for Perl module Tangerine
 
+0.19 2015-08-20
+- HookData now allows to override the hook's own type.
+- Documentation for HookData was corrected and updated.
+- The anymoose hook was dropped; it didn't really make much sense.
+- This release also introduces a new hook, adding support for Module::Hook.
+- The inline hook was enhanced to properly detect Inline::Filters.
+- And finally, the list hooks now support Mojo::Base, mixin::with and Tk::widgets.
+
 0.18 2015-06-24
 - The Inline hook now supports language aliases.
 
