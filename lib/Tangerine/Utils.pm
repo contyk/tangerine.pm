@@ -1,10 +1,11 @@
 package Tangerine::Utils;
 
+use 5.010;
 use strict;
 use warnings;
 use Exporter 'import';
 use List::MoreUtils qw(apply);
-our @EXPORT_OK = qw(accessor addoccurence stripquotelike);
+our @EXPORT_OK = qw(accessor addoccurence fixversion stripquotelike);
 
 sub accessor {
     # TODO: This needs checks
@@ -45,6 +46,21 @@ sub addoccurence {
     return $a;
 }
 
+sub fixversion {
+    my $v = shift;
+    if ($v =~ /^(?<major>\d[\d_]*)(\.(?<minor>[\d_]+))?/) {
+        my ($major, $minor) = ($+{major}, $+{minor});
+        {
+            no warnings 'uninitialized';
+            map { s/_//g } ($major, $minor);
+        }
+        $minor = substr sprintf("%.9f", $minor/10e10), 2
+            if length($minor) > 8;
+        return $major.($minor ? ".${minor}" : '');
+    }
+    return;
+}
+
 1;
 
 __END__
@@ -76,6 +92,10 @@ Attempt to sanitise and strip quote-like operators from a list.
 =item C<addoccurence>
 
 A helper routine for module hash references merging.
+
+=item C<fixversion>
+
+Converts version strings to what the perl interpreter actually tries to load.
 
 =back
 

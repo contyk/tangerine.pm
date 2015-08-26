@@ -5,9 +5,6 @@ Features:
 * Parse EXPR form of eval
 * A new Tangerine method to report required perl version
 * Allow users to specify additional hooks to run
-* Convert versions in use statements as required, e.g.
-  use Exporter 5.7012345_6789 tries to load
-  Exporter 5.701234568
 * Consider adding some handy CPAN::Meta* support
 * Consider adding support for inc::Module::Install,
   e.g. create mapping between Module::Install subs and
