@@ -50,10 +50,7 @@ sub fixversion {
     my $v = shift;
     if ($v =~ /^(?<major>\d[\d_]*)(\.(?<minor>[\d_]+))?/) {
         my ($major, $minor) = ($+{major}, $+{minor});
-        {
-            no warnings 'uninitialized';
-            map { s/_//g } ($major, $minor);
-        }
+        tr/_//d for ($major, $minor);
         $minor = substr sprintf("%.9f", $minor/10e10), 2
             if length($minor) > 8;
         return $major.($minor ? ".${minor}" : '');
