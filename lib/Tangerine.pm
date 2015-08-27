@@ -54,8 +54,11 @@ sub run {
     for my $type (qw(package compile runtime)) {
         for my $hname (@{$self->{_hooks}->{$type}}) {
             my $hook = "Tangerine::hook::$hname";
-            eval "require $hook";
-            push @hooks, $hook->new(type => $type);
+            if (eval "require $hook; 1") {
+                push @hooks, $hook->new(type => $type);
+            } else {
+                warn "Couldn't load the tangerine hook `${hname}'!";
+            }
         }
     }
     @hooks = grep {
