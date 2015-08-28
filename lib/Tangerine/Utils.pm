@@ -50,9 +50,9 @@ sub fixversion {
     my $v = shift;
     if ($v =~ /^(?<major>\d[\d_]*)(\.(?<minor>[\d_]+))?/) {
         my ($major, $minor) = ($+{major}, $+{minor});
-        tr/_//d for ($major, $minor);
+        tr/_//d for grep { defined } $major, $minor;
         $minor = substr sprintf("%.9f", $minor/10e10), 2
-            if length($minor) > 8;
+            if defined($minor) && length($minor) > 8;
         return $major.($minor ? ".${minor}" : '');
     }
     return;
