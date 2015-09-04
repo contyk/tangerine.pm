@@ -5,7 +5,9 @@ use strict;
 use warnings;
 use Exporter 'import';
 use List::MoreUtils qw(apply);
-our @EXPORT_OK = qw(accessor addoccurence fixversion stripquotelike);
+our @EXPORT_OK = qw(accessor addoccurence fixversion stripquotelike $vre);
+
+our $vre = qr/^(\d.*)$/o;
 
 sub accessor {
     # TODO: This needs checks
@@ -14,9 +16,9 @@ sub accessor {
 
 sub stripquotelike {
     my @filtered = map {
-            if (/^('|").*$/o) {
+            if (/^(?:'|").*$/o) {
                 substr $_, 1, -1
-            } elsif (/^(\(|\[|\{).*$/so) {
+            } elsif (/^(?:\(|\[|\{).*$/so) {
                 stripquotelike(split /,|=>/so, substr $_, 1, -1)
             } elsif (/^qq?\s*[^\w](.*)[^\w]$/so) {
                 $1
@@ -26,7 +28,7 @@ sub stripquotelike {
                 $_
             }
         } grep {
-            1 if !/^(,|=>|;|)$/so
+            1 if !/^(?:,|=>|;|)$/so
         } apply {
             s/^\s+|\s+$//sgo;
             $_
@@ -48,7 +50,7 @@ sub addoccurence {
 
 sub fixversion {
     my $v = shift;
-    if ($v =~ /^(?<major>\d[\d_]*)(\.(?<minor>[\d_]+))?/) {
+    if ($v =~ /^(?<major>\d[\d_]*)(?:\.(?<minor>[\d_]+))?/) {
         my ($major, $minor) = ($+{major}, $+{minor});
         tr/_//d for grep { defined } $major, $minor;
         $minor = substr sprintf("%.9f", $minor/10e10), 2

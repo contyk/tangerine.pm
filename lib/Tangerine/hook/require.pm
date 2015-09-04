@@ -13,7 +13,7 @@ sub run {
         my $module = $s->[1];
         return Tangerine::HookData->new(
             modules => { $module => Tangerine::Occurence->new },
-            ) unless $module =~ /^v?5(\..*)?$/;
+            ) unless $module =~ /^v?5(?:\..*)?$/;
     }
     return;
 }

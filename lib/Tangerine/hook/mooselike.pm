@@ -36,8 +36,8 @@ sub run {
             } else {
                 next unless $last;
                 $modules{$last} = $+{version} if
-                    $s->[$i] =~ /^\{.*-version\s*?(=>|,)\s*?((qq?\s*?[^\w]\s*)|'|")?v?
-                        (?<version>\d+?(\.\d+)*)((\s*?[^\w])|'|")?.*\}\s*$/xso;
+                    $s->[$i] =~ /^\{.*-version\s*?(?:=>|,)\s*?(?:(?:qq?\s*?[^\w]\s*)|'|")?v?
+                        (?<version>\d+?(?:\.\d+)*)(?:(?:\s*?[^\w])|'|")?.*\}\s*$/xso;
                 $last = undef;
             }
         }

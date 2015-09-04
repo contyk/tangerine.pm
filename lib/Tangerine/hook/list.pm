@@ -7,13 +7,13 @@ use parent 'Tangerine::Hook';
 use List::MoreUtils qw(any);
 use Tangerine::HookData;
 use Tangerine::Occurence;
-use Tangerine::Utils qw(stripquotelike);
+use Tangerine::Utils qw(stripquotelike $vre);
 
 sub run {
     my ($self, $s) = @_;
     if ((any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) > 2 &&
         (any { $s->[1] eq $_ } qw(aliased base mixin::with Mojo::Base ok parent superclass))) {
-        my ($version) = $s->[2] =~ /^(\d.*)$/o;
+        my ($version) = $s->[2] =~ $vre;
         $version //= '';
         my $voffset = $version ? 3 : 2;
         my @args;
@@ -32,7 +32,7 @@ sub run {
         my %found;
         for (my $i = 0; $i < scalar(@args); $i++) {
             $found{$args[$i]} = '';
-            if ($args[$i+1] && $args[$i+1] =~ /^v?\d+(\.\d+)*$/) {
+            if ($args[$i+1] && $args[$i+1] =~ /^v?\d+(?:\.\d+)*$/) {
                 $found{$args[$i]} = $args[$i+1];
                 $i++
             }

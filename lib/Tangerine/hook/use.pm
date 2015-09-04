@@ -7,13 +7,14 @@ use parent 'Tangerine::Hook';
 use List::MoreUtils qw(any);
 use Tangerine::HookData;
 use Tangerine::Occurence;
+use Tangerine::Utils qw($vre);
 
 sub run {
     my ($self, $s) = @_;
     if (scalar(@$s) > 1 && (any { $s->[0] eq $_ } qw(use no))) {
         return if $s->[1] eq ';';
         my $module = $s->[1];
-        my ($version) = $s->[2] && $s->[2] =~ /^(\d.*)$/o;
+        my ($version) = $s->[2] && $s->[2] =~ $vre;
         $version //= '';
         return Tangerine::HookData->new(
             modules => {
@@ -21,7 +22,7 @@ sub run {
                     version => $version,
                     ),
                 },
-            ) unless $module =~ /^v?5(\..*)?$/;
+            ) unless $module =~ /^v?5(?:\..*)?$/;
     }
     return;
 }

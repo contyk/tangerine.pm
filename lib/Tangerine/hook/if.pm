@@ -6,14 +6,14 @@ use warnings;
 use parent 'Tangerine::Hook';
 use List::MoreUtils qw(any);
 use Tangerine::HookData;
-use Tangerine::Utils qw(stripquotelike);
+use Tangerine::Utils qw(stripquotelike $vre);
 
 
 sub run {
     my ($self, $s) = @_;
     if ((any { $s->[0] eq $_ } qw(use no)) &&
         scalar(@$s) > 3 && $s->[1] eq 'if') {
-        my ($version) = $s->[2] =~ /^(\d.*)$/o;
+        my ($version) = $s->[2] =~ $vre;
         $version //= '';
         my $voffset = $version ? 3 : 2;
         my ($depth, $index) = (0, 0);

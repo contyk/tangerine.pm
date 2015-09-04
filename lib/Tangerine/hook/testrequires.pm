@@ -7,7 +7,7 @@ use parent 'Tangerine::Hook';
 use List::MoreUtils qw(any);
 use Tangerine::HookData;
 use Tangerine::Occurence;
-use Tangerine::Utils qw(stripquotelike);
+use Tangerine::Utils qw(stripquotelike $vre);
 
 sub run {
     my ($self, $s) = @_;
@@ -15,9 +15,9 @@ sub run {
     if ($self->type eq 'compile' &&
         (any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) > 2 &&
         $s->[1] eq 'Test::Requires') {
-        my ($version) = $s->[2] =~ /^(\d.*)$/o;
+        my ($version) = $s->[2] =~ $vre;
         $version //= '';
-        return if !$version && stripquotelike($s->[2]) =~ /^v?5(\..*)?$/;
+        return if !$version && stripquotelike($s->[2]) =~ /^v?5(?:\..*)?$/;
         my $voffset = $version ? 3 : 2;
         my @args;
         if (scalar(@$s) > $voffset) {
