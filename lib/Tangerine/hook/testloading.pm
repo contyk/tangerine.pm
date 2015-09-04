@@ -3,7 +3,7 @@ package Tangerine::hook::testloading;
 use strict;
 use warnings;
 use parent 'Tangerine::Hook';
-use List::MoreUtils qw/any/;
+use List::Util 1.33 qw(any);
 use Tangerine::HookData;
 use Tangerine::Occurence;
 use Tangerine::Utils qw(stripquotelike);

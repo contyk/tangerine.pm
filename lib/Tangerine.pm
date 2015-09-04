@@ -6,7 +6,7 @@ use strict;
 use warnings;
 use utf8;
 use PPI;
-use List::MoreUtils qw(none);
+use List::Util 1.33 qw(none);
 use Scalar::Util qw(blessed);
 use Tangerine::Hook;
 use Tangerine::Occurence;

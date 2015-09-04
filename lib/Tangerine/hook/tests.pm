@@ -4,7 +4,7 @@ use 5.010;
 use strict;
 use warnings;
 use parent 'Tangerine::Hook';
-use List::MoreUtils qw(any);
+use List::Util 1.33 qw(any);
 use Tangerine::Hook;
 use Tangerine::HookData;
 

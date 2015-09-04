@@ -4,7 +4,6 @@ use 5.010;
 use strict;
 use warnings;
 use Exporter 'import';
-use List::MoreUtils qw(apply);
 our @EXPORT_OK = qw(accessor addoccurence fixversion stripquotelike $vre);
 
 our $vre = qr/^(\d.*)$/o;
@@ -29,9 +28,8 @@ sub stripquotelike {
             }
         } grep {
             1 if !/^(?:,|=>|;|)$/so
-        } apply {
-            s/^\s+|\s+$//sgo;
-            $_
+        } map {
+            s/^\s+|\s+$//sgor
         } @_;
     return wantarray ? @filtered : $filtered[0];
 }

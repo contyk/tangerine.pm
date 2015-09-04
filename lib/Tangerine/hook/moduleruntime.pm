@@ -4,7 +4,7 @@ use 5.010;
 use strict;
 use warnings;
 use parent 'Tangerine::Hook';
-use List::MoreUtils qw(any none);
+use List::Util 1.33 qw(any none);
 use Tangerine::HookData;
 use Tangerine::Occurence;
 use Tangerine::Utils qw(stripquotelike);
