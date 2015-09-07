@@ -3,10 +3,11 @@ package Tangerine::Utils;
 use 5.010;
 use strict;
 use warnings;
+use version 0.77;
 use Exporter 'import';
 our @EXPORT_OK = qw(accessor addoccurence fixversion stripquotelike $vre);
 
-our $vre = qr/^(\d.*)$/o;
+our $vre = qr/^($version::LAX)$/o;
 
 sub accessor {
     # TODO: This needs checks
@@ -47,15 +48,7 @@ sub addoccurence {
 }
 
 sub fixversion {
-    my $v = shift;
-    if ($v =~ /^(?<major>\d[\d_]*)(?:\.(?<minor>[\d_]+))?/) {
-        my ($major, $minor) = ($+{major}, $+{minor});
-        tr/_//d for grep { defined } $major, $minor;
-        $minor = substr sprintf("%.9f", $minor/10e10), 2
-            if defined($minor) && length($minor) > 8;
-        return $major.($minor ? ".${minor}" : '');
-    }
-    return;
+    return $_[0] =~ /^v(.+)/o ? $1 : $_[0];
 }
 
 1;
