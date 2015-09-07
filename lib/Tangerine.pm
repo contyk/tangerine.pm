@@ -37,9 +37,9 @@ sub package { accessor _package => @_ }
 sub compile { accessor _compile => @_ }
 sub runtime { accessor _runtime => @_ }
 # For pre-0.15 compatibility
-sub provides { accessor _package => @_ }
-sub requires { accessor _runtime => @_ }
-sub uses { accessor _compile => @_ }
+*provides = \&package;
+*requires = \&runtime;
+*uses = \&compile;
 
 sub run {
     my $self = shift;
