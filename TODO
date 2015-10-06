@@ -10,3 +10,5 @@ Features:
   e.g. create mapping between Module::Install subs and
   the modules providing them
 * Support Prima
+* See what we can do about `use base __PACKAGE__->subroutine(...),
+  which at the moment detects `subroutine' as a module name.
