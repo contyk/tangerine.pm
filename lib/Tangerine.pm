@@ -6,7 +6,7 @@ use strict;
 use warnings;
 use utf8;
 use PPI;
-use List::Util 1.33 qw(none);
+use List::Util 1.33 qw(any none);
 use Scalar::Util qw(blessed);
 use Tangerine::Hook;
 use Tangerine::Occurence;
@@ -81,6 +81,7 @@ sub run {
         for my $hook (@hooks) {
             if (my $data = $hook->run($children)) {
                 my $modules = $data->modules;
+                undef %$modules if any { $_ eq '->' } keys %$modules;
                 for my $k (keys %$modules) {
                     if ($k !~ m/^[a-z_][a-z0-9_]*(?:::[a-z0-9_]+)*(?:::)?$/io ||
                         $k =~ m/^__[A-Z]+__$/o) {
