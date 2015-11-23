@@ -10,3 +10,4 @@ Features:
   e.g. create mapping between Module::Install subs and
   the modules providing them
 * Support Prima
+* Support Test::Stream
