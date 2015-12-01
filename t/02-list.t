@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 45;
+use Test::More tests => 53;
 use Tangerine;
 
 my $scanner = Tangerine->new(file => 't/data/list');
@@ -64,6 +64,18 @@ my %expected = (
         count => 1,
         lines => [ 14 ],
     },
+    Sierra => {
+        count => 1,
+        lines => [ 15 ],
+    },
+    Uniform => {
+        count => 1,
+        lines => [ 16 ],
+    },
+    Victor => {
+        count => 1,
+        lines => [ 16 ],
+    },
     aliased => {
         count => 2,
         lines => [ 3, 9 ],
@@ -91,6 +103,10 @@ my %expected = (
     superclass => {
         count => 1,
         lines => [ 10 ],
+    },
+    'Test::Class::Most' => {
+        count => 2,
+        lines => [ 15, 16 ],
     },
 );
 

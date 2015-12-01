@@ -12,3 +12,9 @@ use Mojo::Base -base;
 use Mojo::Base -strict;
 use Mojo::Base 'Quebec';
 use mixin::with qw(Romeo);
+use Test::Class::Most parent => 'Sierra';
+use Test::Class::Most
+	parent => "Tango",
+	is_abstract => 1,
+	attributes => [qw/foo bar baz/],
+	parent => [qw/Uniform Victor/];

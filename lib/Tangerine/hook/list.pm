@@ -12,7 +12,9 @@ use Tangerine::Utils qw(stripquotelike $vre);
 sub run {
     my ($self, $s) = @_;
     if ((any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) > 2 &&
-        (any { $s->[1] eq $_ } qw(aliased base mixin::with Mojo::Base ok parent superclass))) {
+        (any { $s->[1] eq $_ }
+            qw(aliased base mixin::with Mojo::Base ok parent superclass
+               Test::Class::Most))) {
         my ($version) = $s->[2] =~ $vre;
         $version //= '';
         my $voffset = $version ? 3 : 2;
@@ -29,6 +31,25 @@ sub run {
         }
         @args = $args[0]
             if $args[0] && any { $s->[1] eq $_ } qw/aliased mixin::with Mojo::Base ok/;
+        if ($s->[1] eq 'Test::Class::Most') {
+            my $tcmparent;
+            my @results;
+            for my $arg (@args) {
+                if ($tcmparent) {
+                    if (any { $arg eq $_ } qw/attributes is_abstract/) {
+                        undef $tcmparent;
+                        next
+                    }
+                    push @results, $arg
+                } else {
+                    if ($arg eq 'parent') {
+                        $tcmparent++;
+                        undef @results
+                    }
+                }
+            }
+            @args = @results
+        }
         my %found;
         for (my $i = 0; $i < scalar(@args); $i++) {
             $found{$args[$i]} = '';
@@ -65,12 +86,13 @@ Tangerine::hook::list - Process simple module lists
 This hook catches C<use> statements with modules loading more modules
 listed as their arguments.
 
-Currently this hook knows about L<aliased>, L<base>, L<Test::use::ok>,
-L<parent> and L<superclass>.
+Currently this hook knows about L<aliased>, L<base>, L<Mojo::Base>,
+L<Test::use::ok>, L<parent>, L<superclass> and L<Test::Class::Most>.
 
 =head1 SEE ALSO
 
-L<Tangerine>, L<aliased>, L<base>, L<Test::use::ok>, L<parent>, L<superclass>
+L<Tangerine>, L<aliased>, L<base>, L<Mojo::Base>, L<Test::use::ok>, L<parent>,
+L<superclass>, L<Test::Class::Most>
 
 =head1 AUTHOR
 
