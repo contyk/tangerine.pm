@@ -11,3 +11,4 @@ Features:
   the modules providing them
 * Support Prima
 * Support Test::Stream
+* Support Test::Class::Most
