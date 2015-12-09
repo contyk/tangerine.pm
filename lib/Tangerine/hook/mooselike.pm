@@ -12,7 +12,8 @@ use Tangerine::Utils qw(stripquotelike);
 sub run {
     my ($self, $s) = @_;
     if ($self->type eq 'compile' && $s->[0] eq 'use' &&
-        scalar(@$s) > 1 && (any { $s->[1] eq $_ } qw(Moose Mouse Moo Mo))) {
+        scalar(@$s) > 1 && (any { $s->[1] eq $_ }
+        qw(Moose Mouse Moo Mo Role::Tiny::With))) {
         return Tangerine::HookData->new(
                 hooks => [
                     Tangerine::hook::mooselike->new(type => 'runtime'),
@@ -70,11 +71,12 @@ checks for C<extends> and C<with> statements
 This hook catches various Moose-like modules and watches for their
 specific module-loading keywords, such as C<extends> and C<with>.
 
-Currently this hook knows about L<Moose>, L<Mouse>, L<Moo> and L<Mo>.
+Currently this hook knows about L<Moose>, L<Mouse>, L<Moo>, L<Mo> and
+L<Role::Tiny::With>.
 
 =head1 SEE ALSO
 
-L<Tangerine>, L<Moose>, L<Mouse>, L<Moo>, L<Mo>
+L<Tangerine>, L<Moose>, L<Mouse>, L<Moo>, L<Mo>, L<Role::Tiny::With>
 
 =head1 AUTHOR
 
