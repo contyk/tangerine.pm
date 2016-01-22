@@ -10,7 +10,7 @@ use List::Util 1.33 qw(any none);
 use Scalar::Util qw(blessed);
 use Tangerine::Hook;
 use Tangerine::Occurence;
-use Tangerine::Utils qw(accessor addoccurence fixversion);
+use Tangerine::Utils qw(accessor addoccurence);
 
 sub new {
     my $class = shift;
@@ -95,8 +95,6 @@ sub run {
                         $k = $class
                     }
                     $modules->{$k}->line($statement->line_number);
-                    $modules->{$k}->version(fixversion($modules->{$k}->version))
-                        if $modules->{$k}->version;
                 }
                 my $type = $forcetype // $hook->type;
                 if ($type eq 'package') {

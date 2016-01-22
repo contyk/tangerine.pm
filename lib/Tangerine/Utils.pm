@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use version 0.77;
 use Exporter 'import';
-our @EXPORT_OK = qw(accessor addoccurence fixversion stripquotelike $vre);
+our @EXPORT_OK = qw(accessor addoccurence stripquotelike $vre);
 
 our $vre = qr/^($version::LAX)$/o;
 
@@ -47,10 +47,6 @@ sub addoccurence {
     return $a;
 }
 
-sub fixversion {
-    return $_[0] =~ /^v(.+)/o ? $1 : $_[0];
-}
-
 1;
 
 __END__
@@ -82,10 +78,6 @@ Attempt to sanitise and strip quote-like operators from a list.
 =item C<addoccurence>
 
 A helper routine for module hash references merging.
-
-=item C<fixversion>
-
-Converts version strings to what the perl interpreter actually tries to load.
 
 =back
 
