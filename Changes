@@ -1,5 +1,13 @@
 Revision history for Perl module Tangerine
 
+0.20 2016-01-22
+- Don't crash if the hook isn't really loaded
+- Switched to using List::Util
+- Ignore more false positives (e.g. use base __PACKAGE__->...)
+- Added support for Test::Class::Most
+- Added support for Role::Tiny::With
+- Various minor speed optimisation all over the place
+
 0.19 2015-08-20
 - HookData now allows to override the hook's own type.
 - Documentation for HookData was corrected and updated.
