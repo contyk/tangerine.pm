@@ -30,7 +30,7 @@ sub stripquotelike {
         } grep {
             1 if !/^(?:,|=>|;|)$/so
         } map {
-            s/^\s+|\s+$//sgor
+            (my $trim = $_) =~ s/^\s+|\s+$//sgo; $trim
         } @_;
     return wantarray ? @filtered : $filtered[0];
 }
