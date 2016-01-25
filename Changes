@@ -1,5 +1,8 @@
 Revision history for Perl module Tangerine
 
+0.21 2016-01-25
+- Restore compatibility with perl 5.10.
+
 0.20 2016-01-22
 - Don't crash if the hook isn't really loaded
 - Switched to using List::Util
