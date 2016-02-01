@@ -18,7 +18,6 @@ sub run {
     if ($self->type eq 'runtime' && (any { $s->[0] eq $_ } @routines) &&
         scalar(@$s) > 2)
     {
-        print "I would return: use ".join(' ', @$s[1..$#$s])."\n";
         return Tangerine::HookData->new(
             children => [ 'use', stripquotelike($s->[1]), @$s[2..$#$s] ],
             type => 'runtime',
