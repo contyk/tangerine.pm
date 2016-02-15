@@ -3,7 +3,7 @@ package Tangerine::Utils;
 use 5.010;
 use strict;
 use warnings;
-use version 0.77;
+use version 0.79;
 use Exporter 'import';
 our @EXPORT_OK = qw(accessor addoccurence stripquotelike $vre);
 
