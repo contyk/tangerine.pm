@@ -1,5 +1,11 @@
 Revision history for Perl module Tangerine
 
+0.22 2016-02-25
+- Handle the version module regexes better and define our own simple fallback
+- Recommend List::Util 1.33+ but just use List::MoreUtils if it isn't available
+- Added support for the simple mixin class
+- Removed a useless debug print
+
 0.21 2016-01-25
 - Restore compatibility with perl 5.10.
 
