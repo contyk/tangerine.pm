@@ -5,13 +5,18 @@ use strict;
 use warnings;
 use version 0.77;
 use Exporter 'import';
-our @EXPORT_OK = qw(accessor addoccurence stripquotelike $vre);
+our @EXPORT_OK = qw(accessor addoccurence any none stripquotelike $vre);
 
 our $vre = defined($version::LAX) ?
     qr/^($version::LAX)$/o :
     (defined($version::regex::LAX) ?
         qr/^($version::regex::LAX)$/o :
         qr/^(v?[0-9]+(?:\.[0-9]+)*(?:_[0-9]+)?)$/o );
+
+my $HAVE_LIST_UTIL_133 = eval { require List::Util; $List::Util::VERSION >= 1.33 };
+unless ($HAVE_LIST_UTIL_133) { require List::MoreUtils }
+*any = $HAVE_LIST_UTIL_133 ? \&List::Util::any : \&List::MoreUtils::any;
+*none = $HAVE_LIST_UTIL_133 ? \&List::Util::none : \&List::MoreUtils::none;
 
 sub accessor {
     # TODO: This needs checks

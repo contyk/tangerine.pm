@@ -4,10 +4,9 @@ use 5.010;
 use strict;
 use warnings;
 use parent 'Tangerine::Hook';
-use List::Util 1.33 qw(any);
 use Tangerine::HookData;
 use Tangerine::Occurence;
-use Tangerine::Utils qw(stripquotelike $vre);
+use Tangerine::Utils qw(any stripquotelike $vre);
 
 my %langmap = (
     (map { $_ => 'ASM' } qw/nasm NASM gasp GASP as AS asm/),

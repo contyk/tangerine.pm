@@ -4,10 +4,9 @@ use 5.010;
 use strict;
 use warnings;
 use parent 'Tangerine::Hook';
-use List::Util 1.33 qw(any);
 use Tangerine::HookData;
 use Tangerine::Occurence;
-use Tangerine::Utils qw/stripquotelike/;
+use Tangerine::Utils qw/any stripquotelike/;
 
 sub run {
     my ($self, $s) = @_;

@@ -4,9 +4,9 @@ use 5.010;
 use strict;
 use warnings;
 use parent 'Tangerine::Hook';
-use List::Util 1.33 qw(any);
 use Tangerine::Hook;
 use Tangerine::HookData;
+use Tangerine::Utils qw(any);
 
 sub run {
     my ($self, $s) = @_;

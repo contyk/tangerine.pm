@@ -6,11 +6,10 @@ use strict;
 use warnings;
 use utf8;
 use PPI;
-use List::Util 1.33 qw(any none);
 use Scalar::Util qw(blessed);
 use Tangerine::Hook;
 use Tangerine::Occurence;
-use Tangerine::Utils qw(accessor addoccurence);
+use Tangerine::Utils qw(any accessor addoccurence none);
 
 sub new {
     my $class = shift;
