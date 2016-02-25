@@ -3,11 +3,15 @@ package Tangerine::Utils;
 use 5.010;
 use strict;
 use warnings;
-use version 0.79;
+use version 0.77;
 use Exporter 'import';
 our @EXPORT_OK = qw(accessor addoccurence stripquotelike $vre);
 
-our $vre = qr/^($version::LAX)$/o;
+our $vre = defined($version::LAX) ?
+    qr/^($version::LAX)$/o :
+    (defined($version::regex::LAX) ?
+        qr/^($version::regex::LAX)$/o :
+        qr/^(v?[0-9]+(?:\.[0-9]+)*(?:_[0-9]+)?)$/o );
 
 sub accessor {
     # TODO: This needs checks
