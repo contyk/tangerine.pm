@@ -11,4 +11,3 @@ Features:
   the modules providing them
 * Support Prima
 * Support Test::Stream
-* Differentiate between decimal versions and v-strings
