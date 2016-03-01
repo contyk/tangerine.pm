@@ -9,7 +9,7 @@ use Tangerine::Occurence;
 sub run {
     my ($self, $s) = @_;
     if (scalar(@$s) > 1 && $s->[0] eq 'require') {
-        return if $s->[1] eq ';' || defined($s->[2]) && $s->[2] ne ';';
+        return if $s->[1] eq ';';
         my $module = $s->[1];
         return Tangerine::HookData->new(
             modules => { $module => Tangerine::Occurence->new },
