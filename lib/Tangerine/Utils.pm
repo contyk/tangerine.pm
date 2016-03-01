@@ -13,7 +13,7 @@ our $vre = defined($version::LAX) ?
         qr/^($version::regex::LAX)$/o :
         qr/^(v?[0-9]+(?:\.[0-9]+)*(?:_[0-9]+)?)$/o );
 
-my $HAVE_LIST_UTIL_133 = eval { require List::Util; $List::Util::VERSION >= 1.33 };
+my $HAVE_LIST_UTIL_133 = eval { require List::Util; List::Util->VERSION(1.33) };
 unless ($HAVE_LIST_UTIL_133) { require List::MoreUtils }
 *any = $HAVE_LIST_UTIL_133 ? \&List::Util::any : \&List::MoreUtils::any;
 *none = $HAVE_LIST_UTIL_133 ? \&List::Util::none : \&List::MoreUtils::none;
