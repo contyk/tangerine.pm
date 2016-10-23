@@ -18,7 +18,7 @@ sub run {
                 Tangerine::hook::testloading->new(type => 'runtime') ] );
     }
     if ((any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) > 1 &&
-        $s->[1] eq 'Test::Requires') {
+        (any { $s->[1] eq $_ } qw(Test::Needs Test::Requires))) {
         require Tangerine::hook::testrequires;
         return Tangerine::HookData->new( hooks => [
                 Tangerine::hook::testrequires->new(type => 'runtime') ] );

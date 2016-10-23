@@ -13,7 +13,7 @@ sub run {
     my %found;
     if ($self->type eq 'compile' &&
         (any { $s->[0] eq $_ } qw(use no)) && scalar(@$s) > 2 &&
-        $s->[1] eq 'Test::Requires') {
+        (any { $s->[1] eq $_ } qw(Test::Needs Test::Requires))) {
         my ($version) = $s->[2] =~ $vre;
         $version //= '';
         return if !$version && stripquotelike($s->[2]) =~ /^v?5(?:\..*)?$/;
@@ -31,7 +31,7 @@ sub run {
             %found = map { $_ => '' } @args;
         }
     } elsif ($self->type eq 'runtime' &&
-        $s->[0] eq 'test_requires' && scalar(@$s) > 1) {
+        (any { $s->[0] eq $_ } qw(test_needs test_requires)) && scalar(@$s) > 1) {
         return if $s->[1] eq ';';
         my @args = stripquotelike((@$s)[1..$#$s]);
         $found{$args[0]} = $args[1] && $args[1] ne ';' ? $args[1] : '';
@@ -63,7 +63,8 @@ Tangerine::hook::testrequires - Process Test::Requires calls
 
 This module inspects L<Test::Requires> use and test_requires() calls
 and inspects their arguments, checking which modules the subroutines
-will load.
+will load.  Given the similarity between the two, L<Test::Needs> and
+its test_needs() calls are also supported.
 
 =head1 SEE ALSO
 

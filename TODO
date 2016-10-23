@@ -11,3 +11,5 @@ Features:
   the modules providing them
 * Support Prima
 * Support Test::Stream
+* Reconsier how to report optional module loading, such
+  as those performed by Test::Requires and Test::Needs
