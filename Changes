@@ -1,5 +1,8 @@
 Revision history for Perl module Tangerine
 
+0.23 2016-10-23
+- Extend the testrequires hook with support for Test::Needs
+
 0.22 2016-02-25
 - Handle the version module regexes better and define our own simple fallback
 - Recommend List::Util 1.33+ but just use List::MoreUtils if it isn't available
